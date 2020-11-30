@@ -3,27 +3,29 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D52301F2A34EF472B2FCAA2 /* Pods_Bobcat_Discounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB0BE5179B7F6674FCF31937 /* Pods_Bobcat_Discounts.framework */; };
 		CFDAC9092575B3EB0000ED76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAC9082575B3EB0000ED76 /* AppDelegate.swift */; };
 		CFDAC90B2575B3EB0000ED76 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAC90A2575B3EB0000ED76 /* SceneDelegate.swift */; };
 		CFDAC90D2575B3EB0000ED76 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAC90C2575B3EB0000ED76 /* ViewController.swift */; };
-		CFDAC9102575B3EB0000ED76 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFDAC90E2575B3EB0000ED76 /* Main.storyboard */; };
 		CFDAC9122575B3EC0000ED76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFDAC9112575B3EC0000ED76 /* Assets.xcassets */; };
 		CFDAC9152575B3EC0000ED76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFDAC9132575B3EC0000ED76 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A9566CB4413F71AC22CE178D /* Pods-Bobcat Discounts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bobcat Discounts.release.xcconfig"; path = "Target Support Files/Pods-Bobcat Discounts/Pods-Bobcat Discounts.release.xcconfig"; sourceTree = "<group>"; };
 		CFDAC9052575B3EB0000ED76 /* Bobcat Discounts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bobcat Discounts.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFDAC9082575B3EB0000ED76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CFDAC90A2575B3EB0000ED76 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		CFDAC90C2575B3EB0000ED76 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		CFDAC90F2575B3EB0000ED76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CFDAC9112575B3EC0000ED76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CFDAC9142575B3EC0000ED76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CFDAC9162575B3EC0000ED76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB0BE5179B7F6674FCF31937 /* Pods_Bobcat_Discounts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bobcat_Discounts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E89DE52144FC14CA6F350F3B /* Pods-Bobcat Discounts.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bobcat Discounts.debug.xcconfig"; path = "Target Support Files/Pods-Bobcat Discounts/Pods-Bobcat Discounts.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +33,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D52301F2A34EF472B2FCAA2 /* Pods_Bobcat_Discounts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C5133FA650B3A70CF1900A8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E89DE52144FC14CA6F350F3B /* Pods-Bobcat Discounts.debug.xcconfig */,
+				A9566CB4413F71AC22CE178D /* Pods-Bobcat Discounts.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		100509BE067250FFE500B5F3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DB0BE5179B7F6674FCF31937 /* Pods_Bobcat_Discounts.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CFDAC8FC2575B3EB0000ED76 = {
 			isa = PBXGroup;
 			children = (
 				CFDAC9072575B3EB0000ED76 /* Bobcat Discounts */,
 				CFDAC9062575B3EB0000ED76 /* Products */,
+				0C5133FA650B3A70CF1900A8 /* Pods */,
+				100509BE067250FFE500B5F3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -59,7 +81,6 @@
 				CFDAC9082575B3EB0000ED76 /* AppDelegate.swift */,
 				CFDAC90A2575B3EB0000ED76 /* SceneDelegate.swift */,
 				CFDAC90C2575B3EB0000ED76 /* ViewController.swift */,
-				CFDAC90E2575B3EB0000ED76 /* Main.storyboard */,
 				CFDAC9112575B3EC0000ED76 /* Assets.xcassets */,
 				CFDAC9132575B3EC0000ED76 /* LaunchScreen.storyboard */,
 				CFDAC9162575B3EC0000ED76 /* Info.plist */,
@@ -74,9 +95,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CFDAC9192575B3EC0000ED76 /* Build configuration list for PBXNativeTarget "Bobcat Discounts" */;
 			buildPhases = (
+				6751EDA264D05E931F8C3EF7 /* [CP] Check Pods Manifest.lock */,
 				CFDAC9012575B3EB0000ED76 /* Sources */,
 				CFDAC9022575B3EB0000ED76 /* Frameworks */,
 				CFDAC9032575B3EB0000ED76 /* Resources */,
+				8D9D01E9B771F2BDE643B8AA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -126,11 +149,52 @@
 			files = (
 				CFDAC9152575B3EC0000ED76 /* LaunchScreen.storyboard in Resources */,
 				CFDAC9122575B3EC0000ED76 /* Assets.xcassets in Resources */,
-				CFDAC9102575B3EB0000ED76 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6751EDA264D05E931F8C3EF7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Bobcat Discounts-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8D9D01E9B771F2BDE643B8AA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Bobcat Discounts/Pods-Bobcat Discounts-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Bobcat Discounts/Pods-Bobcat Discounts-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Bobcat Discounts/Pods-Bobcat Discounts-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CFDAC9012575B3EB0000ED76 /* Sources */ = {
@@ -146,14 +210,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		CFDAC90E2575B3EB0000ED76 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CFDAC90F2575B3EB0000ED76 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		CFDAC9132575B3EC0000ED76 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -283,6 +339,7 @@
 		};
 		CFDAC91A2575B3EC0000ED76 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E89DE52144FC14CA6F350F3B /* Pods-Bobcat Discounts.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -303,6 +360,7 @@
 		};
 		CFDAC91B2575B3EC0000ED76 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A9566CB4413F71AC22CE178D /* Pods-Bobcat Discounts.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
