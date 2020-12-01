@@ -8,19 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		4D52301F2A34EF472B2FCAA2 /* Pods_Bobcat_Discounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB0BE5179B7F6674FCF31937 /* Pods_Bobcat_Discounts.framework */; };
+		CFA56EE72575BC2400806C63 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA56EE62575BC2400806C63 /* FeedViewController.swift */; };
+		CFA56EEA2575BDB100806C63 /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA56EE92575BDB100806C63 /* BookmarkViewController.swift */; };
+		CFA56EEE2575D4A900806C63 /* FeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA56EED2575D4A900806C63 /* FeedCollectionViewCell.swift */; };
 		CFDAC9092575B3EB0000ED76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAC9082575B3EB0000ED76 /* AppDelegate.swift */; };
 		CFDAC90B2575B3EB0000ED76 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAC90A2575B3EB0000ED76 /* SceneDelegate.swift */; };
-		CFDAC90D2575B3EB0000ED76 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAC90C2575B3EB0000ED76 /* ViewController.swift */; };
+		CFDAC90D2575B3EB0000ED76 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAC90C2575B3EB0000ED76 /* MainTabBarViewController.swift */; };
 		CFDAC9122575B3EC0000ED76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFDAC9112575B3EC0000ED76 /* Assets.xcassets */; };
 		CFDAC9152575B3EC0000ED76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFDAC9132575B3EC0000ED76 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A9566CB4413F71AC22CE178D /* Pods-Bobcat Discounts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bobcat Discounts.release.xcconfig"; path = "Target Support Files/Pods-Bobcat Discounts/Pods-Bobcat Discounts.release.xcconfig"; sourceTree = "<group>"; };
+		CFA56EE62575BC2400806C63 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		CFA56EE92575BDB100806C63 /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
+		CFA56EED2575D4A900806C63 /* FeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCell.swift; sourceTree = "<group>"; };
 		CFDAC9052575B3EB0000ED76 /* Bobcat Discounts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bobcat Discounts.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFDAC9082575B3EB0000ED76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CFDAC90A2575B3EB0000ED76 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CFDAC90C2575B3EB0000ED76 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CFDAC90C2575B3EB0000ED76 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		CFDAC9112575B3EC0000ED76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CFDAC9142575B3EC0000ED76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CFDAC9162575B3EC0000ED76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -57,6 +63,41 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CFA56EE22575BB6200806C63 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CFA56EF12575D96900806C63 /* Class */,
+				CFA56EE32575BB7900806C63 /* Controller */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CFA56EE32575BB7900806C63 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CFDAC90C2575B3EB0000ED76 /* MainTabBarViewController.swift */,
+				CFA56EE62575BC2400806C63 /* FeedViewController.swift */,
+				CFA56EE92575BDB100806C63 /* BookmarkViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		CFA56EEC2575D44C00806C63 /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				CFA56EED2575D4A900806C63 /* FeedCollectionViewCell.swift */,
+			);
+			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		CFA56EF12575D96900806C63 /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				CFA56EEC2575D44C00806C63 /* CollectionViewCell */,
+			);
+			path = Class;
+			sourceTree = "<group>";
+		};
 		CFDAC8FC2575B3EB0000ED76 = {
 			isa = PBXGroup;
 			children = (
@@ -80,7 +121,7 @@
 			children = (
 				CFDAC9082575B3EB0000ED76 /* AppDelegate.swift */,
 				CFDAC90A2575B3EB0000ED76 /* SceneDelegate.swift */,
-				CFDAC90C2575B3EB0000ED76 /* ViewController.swift */,
+				CFA56EE22575BB6200806C63 /* View */,
 				CFDAC9112575B3EC0000ED76 /* Assets.xcassets */,
 				CFDAC9132575B3EC0000ED76 /* LaunchScreen.storyboard */,
 				CFDAC9162575B3EC0000ED76 /* Info.plist */,
@@ -201,9 +242,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFDAC90D2575B3EB0000ED76 /* ViewController.swift in Sources */,
+				CFDAC90D2575B3EB0000ED76 /* MainTabBarViewController.swift in Sources */,
 				CFDAC9092575B3EB0000ED76 /* AppDelegate.swift in Sources */,
+				CFA56EEE2575D4A900806C63 /* FeedCollectionViewCell.swift in Sources */,
+				CFA56EE72575BC2400806C63 /* FeedViewController.swift in Sources */,
 				CFDAC90B2575B3EB0000ED76 /* SceneDelegate.swift in Sources */,
+				CFA56EEA2575BDB100806C63 /* BookmarkViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             /// Create the storyboard programmatically
             window = UIWindow(frame: UIScreen.main.bounds)
             /// Create the navigation controller and assign the root view controller to the selection screen
-            let navigationController = UINavigationController(rootViewController: ViewController())
+            let navigationController = UINavigationController(rootViewController: MainTabBarViewController())
             window?.rootViewController = navigationController
             window?.makeKeyAndVisible()
             
