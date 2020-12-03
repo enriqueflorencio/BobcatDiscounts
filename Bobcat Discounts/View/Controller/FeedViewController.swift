@@ -12,17 +12,34 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
     
     // MARK: Private Variables
     private var feedCollectionView: UICollectionView!
+    private var practiceRestuarantImage = UIImageView()
+    private var practiceFoodImage = UIImageView()
+    private var practiceRestaurant = Business()
 
     override public func viewDidLoad() {
         super.viewDidLoad()
         
         configureBackgroundColor()
+        configurePracticeImageViews()
         configureFeedCollectionView()
         configureCollectionViewConstraints()
+        parseData()
     }
     
     private func configureBackgroundColor() {
         view.backgroundColor = .white
+    }
+    
+    private func configurePracticeImageViews() {
+        practiceRestuarantImage.image = UIImage(named: "restaurants")
+        view.addSubview(practiceRestuarantImage)
+        practiceRestuarantImage.snp.makeConstraints { (make) in
+            make.width.equalTo(200)
+            make.height.equalTo(100)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(30)
+            make.centerX.equalTo(view.snp.centerX)
+        }
+        
     }
     
     private func configureFeedCollectionView() {
@@ -51,18 +68,43 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
         }
     }
     
+    //Delete later
+    
+    private func parseData() {
+        let restaurantURLString = "https://enriqueflorencio.github.io/bobcatdiscounts.github.io/Data/business_data.json"
+        if let url = URL(string: restaurantURLString) {
+            if let data = try? Data(contentsOf: url) {
+                parse(data)
+            }
+        }
+    }
+
+    private func parse(_ json: Data) {
+        let decoder = JSONDecoder()
+
+        if let jsonRestaurant = try? decoder.decode(Business.self, from: json) {
+            practiceRestaurant.businessName = jsonRestaurant.businessName
+            practiceRestaurant.businessImageURL = jsonRestaurant.businessImageURL
+            practiceRestaurant.itemImageURL = jsonRestaurant.itemImageURL
+            practiceRestaurant.description = jsonRestaurant.description
+        }
+
+
+    }
+    
     // MARK: Collection View Data Source Methods
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return 1
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? FeedCollectionViewCell else {
             fatalError("Could not dequeue reusable cell")
         }
-        cell.businessLabel.text = "Little Oven"
-        cell.foodImageView.image = UIImage(named: "restaurants")
+        
+        cell.itemImageURL = practiceRestaurant.itemImageURL
+        cell.discountDescription = practiceRestaurant.description
         cell.layer.borderColor = UIColor(white: 0, alpha: 0.3).cgColor
         cell.layer.borderWidth = 2
         cell.layer.cornerRadius = 7
@@ -74,3 +116,5 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
     // MARK: Collection View Delegation Methods
 
 }
+/// Put this somewhere better later
+let imageCache = NSCache<AnyObject, AnyObject>()

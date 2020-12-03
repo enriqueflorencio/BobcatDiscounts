@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4D52301F2A34EF472B2FCAA2 /* Pods_Bobcat_Discounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB0BE5179B7F6674FCF31937 /* Pods_Bobcat_Discounts.framework */; };
+		CF2EC22C25777C8700A153F0 /* RestaurantData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2EC22B25777C8700A153F0 /* RestaurantData.swift */; };
+		CF2EC23125777D4300A153F0 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2EC23025777D4300A153F0 /* UIImage+Extensions.swift */; };
 		CFA56EE72575BC2400806C63 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA56EE62575BC2400806C63 /* FeedViewController.swift */; };
 		CFA56EEA2575BDB100806C63 /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA56EE92575BDB100806C63 /* BookmarkViewController.swift */; };
 		CFA56EEE2575D4A900806C63 /* FeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA56EED2575D4A900806C63 /* FeedCollectionViewCell.swift */; };
@@ -20,6 +22,8 @@
 
 /* Begin PBXFileReference section */
 		A9566CB4413F71AC22CE178D /* Pods-Bobcat Discounts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bobcat Discounts.release.xcconfig"; path = "Target Support Files/Pods-Bobcat Discounts/Pods-Bobcat Discounts.release.xcconfig"; sourceTree = "<group>"; };
+		CF2EC22B25777C8700A153F0 /* RestaurantData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantData.swift; sourceTree = "<group>"; };
+		CF2EC23025777D4300A153F0 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		CFA56EE62575BC2400806C63 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		CFA56EE92575BDB100806C63 /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
 		CFA56EED2575D4A900806C63 /* FeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -61,6 +65,22 @@
 				DB0BE5179B7F6674FCF31937 /* Pods_Bobcat_Discounts.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CF2EC22A25777C6100A153F0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CF2EC22B25777C8700A153F0 /* RestaurantData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CF2EC22F25777D2600A153F0 /* UIFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				CF2EC23025777D4300A153F0 /* UIImage+Extensions.swift */,
+			);
+			path = UIFoundation;
 			sourceTree = "<group>";
 		};
 		CFA56EE22575BB6200806C63 /* View */ = {
@@ -121,6 +141,8 @@
 			children = (
 				CFDAC9082575B3EB0000ED76 /* AppDelegate.swift */,
 				CFDAC90A2575B3EB0000ED76 /* SceneDelegate.swift */,
+				CF2EC22F25777D2600A153F0 /* UIFoundation */,
+				CF2EC22A25777C6100A153F0 /* Model */,
 				CFA56EE22575BB6200806C63 /* View */,
 				CFDAC9112575B3EC0000ED76 /* Assets.xcassets */,
 				CFDAC9132575B3EC0000ED76 /* LaunchScreen.storyboard */,
@@ -248,6 +270,8 @@
 				CFA56EE72575BC2400806C63 /* FeedViewController.swift in Sources */,
 				CFDAC90B2575B3EB0000ED76 /* SceneDelegate.swift in Sources */,
 				CFA56EEA2575BDB100806C63 /* BookmarkViewController.swift in Sources */,
+				CF2EC22C25777C8700A153F0 /* RestaurantData.swift in Sources */,
+				CF2EC23125777D4300A153F0 /* UIImage+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
