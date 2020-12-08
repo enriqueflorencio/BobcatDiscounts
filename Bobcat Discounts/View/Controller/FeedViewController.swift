@@ -12,6 +12,7 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
     
     // MARK: Private Variables
     private var feedCollectionView: UICollectionView!
+    private var categoryBar: CategoryBar!
     private var practiceRestuarantImage = UIImageView()
     private var practiceFoodImage = UIImageView()
     private var practiceRestaurant = Business()
@@ -20,9 +21,9 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
         super.viewDidLoad()
         
         configureBackgroundColor()
-        configurePracticeImageViews()
+        setupCategoryBar()
         configureFeedCollectionView()
-        configureCollectionViewConstraints()
+        configureFeedCollectionViewConstraints()
         parseData()
     }
     
@@ -30,16 +31,15 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
         view.backgroundColor = .white
     }
     
-    private func configurePracticeImageViews() {
-        practiceRestuarantImage.image = UIImage(named: "restaurants")
-        view.addSubview(practiceRestuarantImage)
-        practiceRestuarantImage.snp.makeConstraints { (make) in
-            make.width.equalTo(200)
-            make.height.equalTo(100)
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(30)
+    private func setupCategoryBar() {
+        categoryBar = CategoryBar()
+        view.addSubview(categoryBar)
+        categoryBar.snp.makeConstraints { (make) in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.centerX.equalTo(view.snp.centerX)
+            make.width.equalTo(view.snp.width)
+            make.height.equalTo(65)
         }
-        
     }
     
     private func configureFeedCollectionView() {
@@ -54,14 +54,14 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
         feedCollectionView.delegate = self
         feedCollectionView.showsVerticalScrollIndicator = true
         feedCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        feedCollectionView.register(FeedCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        feedCollectionView.register(FeedCollectionViewCell.self, forCellWithReuseIdentifier: "FeedCell")
         feedCollectionView.backgroundColor = .white
         view.addSubview(feedCollectionView)
     }
     
-    private func configureCollectionViewConstraints() {
+    private func configureFeedCollectionViewConstraints() {
         feedCollectionView.snp.makeConstraints { (make) in
-            make.top.equalTo(view.snp.top)
+            make.top.equalTo(categoryBar.snp.bottom)
             make.left.equalTo(view.snp.left)
             make.right.equalTo(view.snp.right)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
@@ -99,12 +99,13 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? FeedCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FeedCell", for: indexPath) as? FeedCollectionViewCell else {
             fatalError("Could not dequeue reusable cell")
         }
         
         cell.itemImageURL = practiceRestaurant.itemImageURL
         cell.discountDescription = practiceRestaurant.description
+        cell.businessName = practiceRestaurant.businessName
         cell.layer.borderColor = UIColor(white: 0, alpha: 0.3).cgColor
         cell.layer.borderWidth = 2
         cell.layer.cornerRadius = 7

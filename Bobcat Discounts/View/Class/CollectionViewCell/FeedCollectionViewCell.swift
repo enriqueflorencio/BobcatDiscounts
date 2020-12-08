@@ -15,6 +15,7 @@ public class FeedCollectionViewCell: UICollectionViewCell {
     public var businessImageView = UIImageView()
     // MARK: Labels
     public var descriptionLabel = UILabel()
+    public var businessNameLabel = UILabel()
     // MARK: Image URLS
     public var itemImageURL: String? {
         didSet {
@@ -27,6 +28,12 @@ public class FeedCollectionViewCell: UICollectionViewCell {
     public var discountDescription: String? {
         didSet {
             configureDescriptionLabel()
+        }
+    }
+    
+    public var businessName: String? {
+        didSet {
+            configurebusinessNameLabel()
         }
     }
     
@@ -48,7 +55,7 @@ public class FeedCollectionViewCell: UICollectionViewCell {
     }
     
     private func configureDescriptionLabel() {
-        descriptionLabel.textColor = UIColor.black
+        descriptionLabel.textColor = UIColor.blue
         descriptionLabel.textAlignment = .left
         descriptionLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 11.0)
         descriptionLabel.text = discountDescription
@@ -57,6 +64,20 @@ public class FeedCollectionViewCell: UICollectionViewCell {
             make.width.equalTo(300)
             make.height.equalTo(40)
             make.top.equalTo(businessImageView.snp.bottom)
+            make.leading.equalTo(snp.leading).offset(10)
+        }
+    }
+    
+    private func configurebusinessNameLabel() {
+        businessNameLabel.textColor = UIColor.black
+        businessNameLabel.textAlignment = .left
+        businessNameLabel.font = UIFont(name: "HelveticaNeue", size: 11.0)
+        businessNameLabel.text = businessName
+        addSubview(businessNameLabel)
+        businessNameLabel.snp.makeConstraints { (make) in
+            make.width.equalTo(300)
+            make.height.equalTo(30)
+            make.top.equalTo(descriptionLabel.snp.bottom).inset(15)
             make.leading.equalTo(snp.leading).offset(10)
         }
     }

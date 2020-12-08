@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		4D52301F2A34EF472B2FCAA2 /* Pods_Bobcat_Discounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB0BE5179B7F6674FCF31937 /* Pods_Bobcat_Discounts.framework */; };
-		CF2EC22C25777C8700A153F0 /* RestaurantData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2EC22B25777C8700A153F0 /* RestaurantData.swift */; };
+		CF2EC22C25777C8700A153F0 /* BusinessData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2EC22B25777C8700A153F0 /* BusinessData.swift */; };
 		CF2EC23125777D4300A153F0 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2EC23025777D4300A153F0 /* UIImage+Extensions.swift */; };
+		CF2EC23A257A17D100A153F0 /* CategoryBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2EC239257A17D100A153F0 /* CategoryBar.swift */; };
 		CFA56EE72575BC2400806C63 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA56EE62575BC2400806C63 /* FeedViewController.swift */; };
 		CFA56EEA2575BDB100806C63 /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA56EE92575BDB100806C63 /* BookmarkViewController.swift */; };
 		CFA56EEE2575D4A900806C63 /* FeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA56EED2575D4A900806C63 /* FeedCollectionViewCell.swift */; };
@@ -18,12 +19,14 @@
 		CFDAC90D2575B3EB0000ED76 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAC90C2575B3EB0000ED76 /* MainTabBarViewController.swift */; };
 		CFDAC9122575B3EC0000ED76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFDAC9112575B3EC0000ED76 /* Assets.xcassets */; };
 		CFDAC9152575B3EC0000ED76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFDAC9132575B3EC0000ED76 /* LaunchScreen.storyboard */; };
+		CFE00270257E27CA00A87E5F /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE0026F257E27CA00A87E5F /* CategoryCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A9566CB4413F71AC22CE178D /* Pods-Bobcat Discounts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bobcat Discounts.release.xcconfig"; path = "Target Support Files/Pods-Bobcat Discounts/Pods-Bobcat Discounts.release.xcconfig"; sourceTree = "<group>"; };
-		CF2EC22B25777C8700A153F0 /* RestaurantData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantData.swift; sourceTree = "<group>"; };
+		CF2EC22B25777C8700A153F0 /* BusinessData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessData.swift; sourceTree = "<group>"; };
 		CF2EC23025777D4300A153F0 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		CF2EC239257A17D100A153F0 /* CategoryBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBar.swift; sourceTree = "<group>"; };
 		CFA56EE62575BC2400806C63 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		CFA56EE92575BDB100806C63 /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
 		CFA56EED2575D4A900806C63 /* FeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -34,6 +37,7 @@
 		CFDAC9112575B3EC0000ED76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CFDAC9142575B3EC0000ED76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CFDAC9162575B3EC0000ED76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CFE0026F257E27CA00A87E5F /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		DB0BE5179B7F6674FCF31937 /* Pods_Bobcat_Discounts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bobcat_Discounts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E89DE52144FC14CA6F350F3B /* Pods-Bobcat Discounts.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bobcat Discounts.debug.xcconfig"; path = "Target Support Files/Pods-Bobcat Discounts/Pods-Bobcat Discounts.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -70,7 +74,7 @@
 		CF2EC22A25777C6100A153F0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CF2EC22B25777C8700A153F0 /* RestaurantData.swift */,
+				CF2EC22B25777C8700A153F0 /* BusinessData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -106,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				CFA56EED2575D4A900806C63 /* FeedCollectionViewCell.swift */,
+				CFE0026F257E27CA00A87E5F /* CategoryCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -114,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				CFA56EEC2575D44C00806C63 /* CollectionViewCell */,
+				CF2EC239257A17D100A153F0 /* CategoryBar.swift */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -270,8 +276,10 @@
 				CFA56EE72575BC2400806C63 /* FeedViewController.swift in Sources */,
 				CFDAC90B2575B3EB0000ED76 /* SceneDelegate.swift in Sources */,
 				CFA56EEA2575BDB100806C63 /* BookmarkViewController.swift in Sources */,
-				CF2EC22C25777C8700A153F0 /* RestaurantData.swift in Sources */,
+				CF2EC23A257A17D100A153F0 /* CategoryBar.swift in Sources */,
+				CF2EC22C25777C8700A153F0 /* BusinessData.swift in Sources */,
 				CF2EC23125777D4300A153F0 /* UIImage+Extensions.swift in Sources */,
+				CFE00270257E27CA00A87E5F /* CategoryCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
