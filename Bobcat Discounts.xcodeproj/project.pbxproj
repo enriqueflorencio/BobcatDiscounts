@@ -7,19 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4D52301F2A34EF472B2FCAA2 /* Pods_Bobcat_Discounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB0BE5179B7F6674FCF31937 /* Pods_Bobcat_Discounts.framework */; };
+		884A3CF01798838EBF947BE7 /* libPods-Bobcat Discounts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6C3D06CC80F55EA6A2948AC /* libPods-Bobcat Discounts.a */; };
 		CF2EC22C25777C8700A153F0 /* BusinessData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2EC22B25777C8700A153F0 /* BusinessData.swift */; };
 		CF2EC23125777D4300A153F0 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2EC23025777D4300A153F0 /* UIImage+Extensions.swift */; };
 		CF2EC23A257A17D100A153F0 /* CategoryBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2EC239257A17D100A153F0 /* CategoryBar.swift */; };
 		CFA56EE72575BC2400806C63 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA56EE62575BC2400806C63 /* FeedViewController.swift */; };
 		CFA56EEA2575BDB100806C63 /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA56EE92575BDB100806C63 /* BookmarkViewController.swift */; };
 		CFA56EEE2575D4A900806C63 /* FeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA56EED2575D4A900806C63 /* FeedCollectionViewCell.swift */; };
+		CFAD665625823B5900626CE0 /* restaurant.json in Resources */ = {isa = PBXBuildFile; fileRef = CFAD665525823B5900626CE0 /* restaurant.json */; };
 		CFDAC9092575B3EB0000ED76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAC9082575B3EB0000ED76 /* AppDelegate.swift */; };
 		CFDAC90B2575B3EB0000ED76 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAC90A2575B3EB0000ED76 /* SceneDelegate.swift */; };
 		CFDAC90D2575B3EB0000ED76 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAC90C2575B3EB0000ED76 /* MainTabBarViewController.swift */; };
 		CFDAC9122575B3EC0000ED76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFDAC9112575B3EC0000ED76 /* Assets.xcassets */; };
 		CFDAC9152575B3EC0000ED76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFDAC9132575B3EC0000ED76 /* LaunchScreen.storyboard */; };
-		CFE00270257E27CA00A87E5F /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE0026F257E27CA00A87E5F /* CategoryCell.swift */; };
+		CFE00270257E27CA00A87E5F /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE0026F257E27CA00A87E5F /* CategoryCollectionViewCell.swift */; };
+		CFE00273257F996500A87E5F /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE00272257F996500A87E5F /* OnboardingViewController.swift */; };
+		CFE0027C257FA30E00A87E5F /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE0027B257FA30E00A87E5F /* OnboardingCollectionViewCell.swift */; };
+		CFE002822581BF1E00A87E5F /* bookmark.json in Resources */ = {isa = PBXBuildFile; fileRef = CFE002812581BF1E00A87E5F /* bookmark.json */; };
+		CFE002852581BF2600A87E5F /* idcard.json in Resources */ = {isa = PBXBuildFile; fileRef = CFE002842581BF2600A87E5F /* idcard.json */; };
+		CFE002882581C32D00A87E5F /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE002872581C32D00A87E5F /* NextButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +36,7 @@
 		CFA56EE62575BC2400806C63 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		CFA56EE92575BDB100806C63 /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
 		CFA56EED2575D4A900806C63 /* FeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCell.swift; sourceTree = "<group>"; };
+		CFAD665525823B5900626CE0 /* restaurant.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = restaurant.json; path = "../../../Downloads/16274-trending-restaurant/restaurant.json"; sourceTree = "<group>"; };
 		CFDAC9052575B3EB0000ED76 /* Bobcat Discounts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bobcat Discounts.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFDAC9082575B3EB0000ED76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CFDAC90A2575B3EB0000ED76 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,9 +44,14 @@
 		CFDAC9112575B3EC0000ED76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CFDAC9142575B3EC0000ED76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CFDAC9162575B3EC0000ED76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CFE0026F257E27CA00A87E5F /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
-		DB0BE5179B7F6674FCF31937 /* Pods_Bobcat_Discounts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bobcat_Discounts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFE0026F257E27CA00A87E5F /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		CFE00272257F996500A87E5F /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		CFE0027B257FA30E00A87E5F /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
+		CFE002812581BF1E00A87E5F /* bookmark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = bookmark.json; path = ../../../Downloads/bookmark.json; sourceTree = "<group>"; };
+		CFE002842581BF2600A87E5F /* idcard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = idcard.json; path = ../../../Downloads/idcard.json; sourceTree = "<group>"; };
+		CFE002872581C32D00A87E5F /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
 		E89DE52144FC14CA6F350F3B /* Pods-Bobcat Discounts.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bobcat Discounts.debug.xcconfig"; path = "Target Support Files/Pods-Bobcat Discounts/Pods-Bobcat Discounts.debug.xcconfig"; sourceTree = "<group>"; };
+		F6C3D06CC80F55EA6A2948AC /* libPods-Bobcat Discounts.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Bobcat Discounts.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D52301F2A34EF472B2FCAA2 /* Pods_Bobcat_Discounts.framework in Frameworks */,
+				884A3CF01798838EBF947BE7 /* libPods-Bobcat Discounts.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,7 +78,7 @@
 		100509BE067250FFE500B5F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DB0BE5179B7F6674FCF31937 /* Pods_Bobcat_Discounts.framework */,
+				F6C3D06CC80F55EA6A2948AC /* libPods-Bobcat Discounts.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -99,6 +111,7 @@
 		CFA56EE32575BB7900806C63 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				CFE00272257F996500A87E5F /* OnboardingViewController.swift */,
 				CFDAC90C2575B3EB0000ED76 /* MainTabBarViewController.swift */,
 				CFA56EE62575BC2400806C63 /* FeedViewController.swift */,
 				CFA56EE92575BDB100806C63 /* BookmarkViewController.swift */,
@@ -110,7 +123,8 @@
 			isa = PBXGroup;
 			children = (
 				CFA56EED2575D4A900806C63 /* FeedCollectionViewCell.swift */,
-				CFE0026F257E27CA00A87E5F /* CategoryCell.swift */,
+				CFE0026F257E27CA00A87E5F /* CategoryCollectionViewCell.swift */,
+				CFE0027B257FA30E00A87E5F /* OnboardingCollectionViewCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -120,6 +134,7 @@
 			children = (
 				CFA56EEC2575D44C00806C63 /* CollectionViewCell */,
 				CF2EC239257A17D100A153F0 /* CategoryBar.swift */,
+				CFE002872581C32D00A87E5F /* NextButton.swift */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -151,6 +166,9 @@
 				CF2EC22A25777C6100A153F0 /* Model */,
 				CFA56EE22575BB6200806C63 /* View */,
 				CFDAC9112575B3EC0000ED76 /* Assets.xcassets */,
+				CFAD665525823B5900626CE0 /* restaurant.json */,
+				CFE002812581BF1E00A87E5F /* bookmark.json */,
+				CFE002842581BF2600A87E5F /* idcard.json */,
 				CFDAC9132575B3EC0000ED76 /* LaunchScreen.storyboard */,
 				CFDAC9162575B3EC0000ED76 /* Info.plist */,
 			);
@@ -168,7 +186,7 @@
 				CFDAC9012575B3EB0000ED76 /* Sources */,
 				CFDAC9022575B3EB0000ED76 /* Frameworks */,
 				CFDAC9032575B3EB0000ED76 /* Resources */,
-				8D9D01E9B771F2BDE643B8AA /* [CP] Embed Pods Frameworks */,
+				E85BCE43E19653681CBA750C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -218,6 +236,9 @@
 			files = (
 				CFDAC9152575B3EC0000ED76 /* LaunchScreen.storyboard in Resources */,
 				CFDAC9122575B3EC0000ED76 /* Assets.xcassets in Resources */,
+				CFE002852581BF2600A87E5F /* idcard.json in Resources */,
+				CFAD665625823B5900626CE0 /* restaurant.json in Resources */,
+				CFE002822581BF1E00A87E5F /* bookmark.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,21 +267,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8D9D01E9B771F2BDE643B8AA /* [CP] Embed Pods Frameworks */ = {
+		E85BCE43E19653681CBA750C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Bobcat Discounts/Pods-Bobcat Discounts-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Bobcat Discounts/Pods-Bobcat Discounts-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Bobcat Discounts/Pods-Bobcat Discounts-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Bobcat Discounts/Pods-Bobcat Discounts-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Bobcat Discounts/Pods-Bobcat Discounts-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Bobcat Discounts/Pods-Bobcat Discounts-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -270,6 +291,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFE002882581C32D00A87E5F /* NextButton.swift in Sources */,
 				CFDAC90D2575B3EB0000ED76 /* MainTabBarViewController.swift in Sources */,
 				CFDAC9092575B3EB0000ED76 /* AppDelegate.swift in Sources */,
 				CFA56EEE2575D4A900806C63 /* FeedCollectionViewCell.swift in Sources */,
@@ -279,7 +301,9 @@
 				CF2EC23A257A17D100A153F0 /* CategoryBar.swift in Sources */,
 				CF2EC22C25777C8700A153F0 /* BusinessData.swift in Sources */,
 				CF2EC23125777D4300A153F0 /* UIImage+Extensions.swift in Sources */,
-				CFE00270257E27CA00A87E5F /* CategoryCell.swift in Sources */,
+				CFE00273257F996500A87E5F /* OnboardingViewController.swift in Sources */,
+				CFE00270257E27CA00A87E5F /* CategoryCollectionViewCell.swift in Sources */,
+				CFE0027C257FA30E00A87E5F /* OnboardingCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

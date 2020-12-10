@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-public class CategoryCell: UICollectionViewCell {
+public class CategoryCollectionViewCell: UICollectionViewCell {
     
     public var categoryString: String? {
         didSet {

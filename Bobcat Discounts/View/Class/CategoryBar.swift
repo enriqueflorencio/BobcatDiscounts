@@ -35,7 +35,7 @@ public class CategoryBar: UIView, UICollectionViewDataSource, UICollectionViewDe
         categoryCollectionView.delegate = self
         categoryCollectionView.showsHorizontalScrollIndicator = false
         categoryCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        categoryCollectionView.register(CategoryCell.self, forCellWithReuseIdentifier: cellId)
+        categoryCollectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
         addSubview(categoryCollectionView)
         
     }
@@ -50,15 +50,16 @@ public class CategoryBar: UIView, UICollectionViewDataSource, UICollectionViewDe
     // MARK: Data Source Methods
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return imageNames.count
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? CategoryCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? CategoryCollectionViewCell else {
             fatalError("Failed to dequeue reusable cell")
         }
         
         cell.categoryString = imageNames[indexPath.item]
+        
         
         
         return cell

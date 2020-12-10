@@ -1,4 +1,4 @@
-framework module Pods_Bobcat_Discounts {
+module Pods_Bobcat_Discounts {
   umbrella header "Pods-Bobcat Discounts-umbrella.h"
 
   export *
