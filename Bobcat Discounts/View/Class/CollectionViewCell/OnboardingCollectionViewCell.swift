@@ -9,10 +9,27 @@ import UIKit
 import SnapKit
 import Lottie
 
+public protocol OnboardingCellDelegate : class {
+    func moveFrame()
+}
+
 public class OnboardingCollectionViewCell: UICollectionViewCell {
     private let descriptionLabel = UILabel()
     private let animationView = AnimationView()
-    private let nextButton = NextButton()
+    public var nextButton = NextButton()
+    public weak var delegate: OnboardingCellDelegate?
+    public var descriptionString: String? {
+        didSet {
+            descriptionLabel.text = descriptionString
+        }
+        
+    }
+    public var animationString: String? {
+        didSet {
+            animationView.animation = Animation.named(animationString!)
+            animationView.play()
+        }
+    }
     public override init(frame: CGRect) {
         super.init(frame: frame)
         configureAnimation()
@@ -24,13 +41,18 @@ public class OnboardingCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    public override func prepareForReuse() {
+        animationView.animation = nil
+        descriptionLabel.text = nil
+    }
+    
     
     private func configureAnimation() {
-        animationView.animation = Animation.named("restaurant")
+        //animationView.animation = Animation.named(animationString!)
         animationView.translatesAutoresizingMaskIntoConstraints = false
         animationView.backgroundColor = .white
         animationView.contentMode = .scaleAspectFit
-        animationView.animationSpeed = 0.8
+        animationView.animationSpeed = 1
         animationView.loopMode = .loop
         addSubview(animationView)
         animationView.snp.makeConstraints { (make) in
@@ -39,12 +61,12 @@ public class OnboardingCollectionViewCell: UICollectionViewCell {
             make.centerY.equalTo(snp.centerY).multipliedBy(0.8)
             make.centerX.equalTo(snp.centerX)
         }
-        animationView.play()
+        
         
     }
     
     private func configureDescriptionLabel() {
-        descriptionLabel.text = "Find businesses in Merced that offer discounts to UC Merced students"
+        descriptionLabel.text = ""
         descriptionLabel.numberOfLines = 2
         descriptionLabel.font = UIFont(name: "AvenirNext-Medium", size: 16.0)
         descriptionLabel.textAlignment = .center
@@ -60,6 +82,7 @@ public class OnboardingCollectionViewCell: UICollectionViewCell {
     
     private func configureNextButton() {
         nextButton.set(title: "Next", backgroundColor: UIColor.systemYellow)
+        nextButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         addSubview(nextButton)
         nextButton.snp.makeConstraints { (make) in
             make.width.equalTo(snp.width).multipliedBy(0.8)
@@ -67,6 +90,11 @@ public class OnboardingCollectionViewCell: UICollectionViewCell {
             make.top.equalTo(descriptionLabel.snp.bottom).offset(10)
             make.centerX.equalTo(snp.centerX)
         }
+    }
+    
+    @objc func buttonTapped(sender: UIButton) {
+        sender.pulsate()
+        delegate?.moveFrame()
     }
     
 }

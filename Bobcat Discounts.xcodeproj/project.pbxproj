@@ -11,6 +11,7 @@
 		CF2EC22C25777C8700A153F0 /* BusinessData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2EC22B25777C8700A153F0 /* BusinessData.swift */; };
 		CF2EC23125777D4300A153F0 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2EC23025777D4300A153F0 /* UIImage+Extensions.swift */; };
 		CF2EC23A257A17D100A153F0 /* CategoryBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2EC239257A17D100A153F0 /* CategoryBar.swift */; };
+		CF757F6B258F065A0033DEEF /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF757F6A258F065A0033DEEF /* UIButton+Extensions.swift */; };
 		CFA56EE72575BC2400806C63 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA56EE62575BC2400806C63 /* FeedViewController.swift */; };
 		CFA56EEA2575BDB100806C63 /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA56EE92575BDB100806C63 /* BookmarkViewController.swift */; };
 		CFA56EEE2575D4A900806C63 /* FeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA56EED2575D4A900806C63 /* FeedCollectionViewCell.swift */; };
@@ -33,6 +34,7 @@
 		CF2EC22B25777C8700A153F0 /* BusinessData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessData.swift; sourceTree = "<group>"; };
 		CF2EC23025777D4300A153F0 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		CF2EC239257A17D100A153F0 /* CategoryBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBar.swift; sourceTree = "<group>"; };
+		CF757F6A258F065A0033DEEF /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		CFA56EE62575BC2400806C63 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		CFA56EE92575BDB100806C63 /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
 		CFA56EED2575D4A900806C63 /* FeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				CF2EC23025777D4300A153F0 /* UIImage+Extensions.swift */,
+				CF757F6A258F065A0033DEEF /* UIButton+Extensions.swift */,
 			);
 			path = UIFoundation;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFE002882581C32D00A87E5F /* NextButton.swift in Sources */,
+				CF757F6B258F065A0033DEEF /* UIButton+Extensions.swift in Sources */,
 				CFDAC90D2575B3EB0000ED76 /* MainTabBarViewController.swift in Sources */,
 				CFDAC9092575B3EB0000ED76 /* AppDelegate.swift in Sources */,
 				CFA56EEE2575D4A900806C63 /* FeedCollectionViewCell.swift in Sources */,

@@ -9,8 +9,10 @@ import UIKit
 import SnapKit
 import Lottie
 
-public class OnboardingViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+public class OnboardingViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, OnboardingCellDelegate {
     
+    private let animationStrings = ["restaurant", "idcard", "bookmark"]
+    private let infoStrings = ["Find businesses in Merced that offer discounts to UC Merced students!", "Please have your student ID present when making a purchase", "Bookmark discounts that you might want to reference later!"]
     private var collectionView: UICollectionView!
     private let cellID = "onBoardingCell"
 
@@ -30,6 +32,7 @@ public class OnboardingViewController: UIViewController, UICollectionViewDataSou
         
         collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height), collectionViewLayout: layout)
         collectionView.isPagingEnabled = true
+        //collectionView.isScrollEnabled = false
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.showsHorizontalScrollIndicator = true
@@ -49,21 +52,65 @@ public class OnboardingViewController: UIViewController, UICollectionViewDataSou
         }
     }
     
+    private func presentMainApp() {
+        let vc = MainTabBarViewController()
+        let navVC = UINavigationController(rootViewController: vc)
+        navVC.modalPresentationStyle = .fullScreen
+        present(navVC, animated: true, completion: nil)
+        //self.navigationController?.pushViewController(navVC, animated: true)
+    }
+    
     // MARK: Data Source Methods
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return infoStrings.count
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as? OnboardingCollectionViewCell else {
+            fatalError()
+        }
+        if(indexPath.item == infoStrings.count - 1) {
+            cell.nextButton.backgroundColor = .systemGreen
+            cell.nextButton.setTitle("Get Started", for: .normal)
+        }
         cell.backgroundColor = .white
+        cell.animationString = animationStrings[indexPath.item]
+        cell.descriptionString = infoStrings[indexPath.item]
+        cell.delegate = self
         
         return cell
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    // MARK: OnboardingCell Delegation Methods
+    
+    public func moveFrame() {
+        guard let centerindex = getCenterIndex() else {
+            return
+        }
+        
+        switch centerindex.item {
+        case infoStrings.count - 1:
+            let defaults = UserDefaults.standard
+            defaults.set(true, forKey: "isOnboarded")
+            presentMainApp()
+        default:
+            let nextItem = centerindex.item + 1
+            let nextIndexPath = IndexPath(item: nextItem, section: 0)
+            collectionView.scrollToItem(at: nextIndexPath, at: .right, animated: true)
+        }
+        
+    }
+    
+    private func getCenterIndex() -> IndexPath? {
+        ///Take the center of the view controllers space itself and converting it to the space of the view I'm interested in which in this case is the collection view
+        let center = self.view.convert(self.collectionView.center, to: self.collectionView)
+        let index = collectionView.indexPathForItem(at: center)
+        return index
     }
     
 }
