@@ -54,6 +54,16 @@ public class FeedCollectionViewCell: UICollectionViewCell {
         descriptionLabel.text = nil
     }
     
+    public override func layoutSubviews() {
+        layer.shadowColor = UIColor.gray.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 0)
+        layer.shadowRadius = 6.0
+        layer.shadowOpacity = 0.6
+        layer.masksToBounds = false
+        layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.contentView.layer.cornerRadius).cgPath
+        
+    }
+    
     private func configureDescriptionLabel() {
         descriptionLabel.textColor = UIColor.blue
         descriptionLabel.textAlignment = .left
@@ -93,7 +103,7 @@ public class FeedCollectionViewCell: UICollectionViewCell {
         }
         itemImageView.contentMode = .scaleAspectFill
         itemImageView.layer.borderWidth = 1.0
-        //foodImageView.layer.cornerRadius = foodImageView.image!.size.width / 2
+        itemImageView.layer.cornerRadius = 7
         itemImageView.layer.masksToBounds = false
         itemImageView.clipsToBounds = true
     }
@@ -119,30 +129,32 @@ public class FeedCollectionViewCell: UICollectionViewCell {
     
     private func fetchImagesFromURLs() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let url = URL(string: (self?.itemImageURL!)!) else {
+            guard let itemurl = URL(string: (self?.itemImageURL!)!) else {
                 return
             }
             
             ///If the image is already in the cache then don't make the request and update the imageView to what's in the cache
-            if let imageFromCache = imageCache.object(forKey: url as AnyObject) as? UIImage {
+            if let imageFromCache = imageCache.object(forKey: itemurl as AnyObject) as? UIImage {
                 ///Updates to the UI run on the main thread
                 DispatchQueue.main.async { [weak self] in
                     self?.itemImageView.image = imageFromCache
+                    
                 }
                 
             } else {
                 ///Cache miss and so we make the network request
-                guard let data = try? Data(contentsOf: url) else {
+                guard let data = try? Data(contentsOf: itemurl) else {
                     return
                 }
                 ///Resize the image to optimize memory usage and insert it into the cache
                 guard let imageToCache = UIImage(data: data) else {
                     return
                 }
-                imageCache.setObject(imageToCache, forKey: url as AnyObject)
+                imageCache.setObject(imageToCache, forKey: itemurl as AnyObject)
                 ///Updates to the UI occur on the main thread
                 DispatchQueue.main.async { [weak self] in
                     self?.itemImageView.image = imageToCache
+                    
                 }
             }
             

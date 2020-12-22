@@ -15,7 +15,7 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
     private var categoryBar: CategoryBar!
     private var practiceRestuarantImage = UIImageView()
     private var practiceFoodImage = UIImageView()
-    private var practiceRestaurant = Business()
+    private var businesses = [businessInfo]()
 
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -82,12 +82,21 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
     private func parse(_ json: Data) {
         let decoder = JSONDecoder()
 
-        if let jsonRestaurant = try? decoder.decode(Business.self, from: json) {
-            practiceRestaurant.businessName = jsonRestaurant.businessName
-            practiceRestaurant.businessImageURL = jsonRestaurant.businessImageURL
-            practiceRestaurant.itemImageURL = jsonRestaurant.itemImageURL
-            practiceRestaurant.description = jsonRestaurant.description
+        if let jsonRestaurant = try? decoder.decode(businessData.self, from: json) {
+            
+            var businessData = jsonRestaurant.data
+            var businessesFromAPI = businessData.businesses
+            for elm in businessesFromAPI {
+                businesses.append(elm)
+            }
+            print(businesses.count)
+//            practiceRestaurant.businessName = jsonRestaurant.businessName
+//            practiceRestaurant.businessImageURL = jsonRestaurant.businessImageURL
+//            practiceRestaurant.itemImageURL = jsonRestaurant.itemImageURL
+//            practiceRestaurant.description = jsonRestaurant.description
         }
+        
+        feedCollectionView.reloadData()
 
 
     }
@@ -95,7 +104,7 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
     // MARK: Collection View Data Source Methods
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return businesses.count
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -103,9 +112,9 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
             fatalError("Could not dequeue reusable cell")
         }
         
-        cell.itemImageURL = practiceRestaurant.itemImageURL
-        cell.discountDescription = practiceRestaurant.description
-        cell.businessName = practiceRestaurant.businessName
+        cell.itemImageURL = businesses[indexPath.row].itemImageURL
+        cell.discountDescription = businesses[indexPath.row].description
+        cell.businessName = businesses[indexPath.row].businessName
         cell.layer.borderColor = UIColor(white: 0, alpha: 0.3).cgColor
         cell.layer.borderWidth = 2
         cell.layer.cornerRadius = 7
