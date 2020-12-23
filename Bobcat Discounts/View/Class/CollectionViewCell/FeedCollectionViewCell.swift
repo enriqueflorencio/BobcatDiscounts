@@ -137,6 +137,7 @@ public class FeedCollectionViewCell: UICollectionViewCell {
             if let imageFromCache = imageCache.object(forKey: itemurl as AnyObject) as? UIImage {
                 ///Updates to the UI run on the main thread
                 DispatchQueue.main.async { [weak self] in
+                    
                     self?.itemImageView.image = imageFromCache
                     
                 }
@@ -147,7 +148,7 @@ public class FeedCollectionViewCell: UICollectionViewCell {
                     return
                 }
                 ///Resize the image to optimize memory usage and insert it into the cache
-                guard let imageToCache = UIImage(data: data) else {
+                guard let imageToCache = UIImage(data: data)?.resizeImage() else {
                     return
                 }
                 imageCache.setObject(imageToCache, forKey: itemurl as AnyObject)

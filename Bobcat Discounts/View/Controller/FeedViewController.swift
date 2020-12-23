@@ -124,6 +124,28 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     // MARK: Collection View Delegation Methods
+    
+    public func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        UIView.animate(withDuration: 0.3, animations: {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? FeedCollectionViewCell else {
+                fatalError()
+            }
+            
+            cell.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
+            
+        })
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        UIView.animate(withDuration: 0.3, animations: {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? FeedCollectionViewCell else {
+                fatalError()
+            }
+            
+            cell.backgroundColor = .white
+            
+        })
+    }
 
 }
 /// Put this somewhere better later
