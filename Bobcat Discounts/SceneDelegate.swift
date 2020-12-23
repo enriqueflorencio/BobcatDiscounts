@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let defaults = UserDefaults.standard
         let didOnboard = defaults.bool(forKey: "isOnboarded")
         if(didOnboard) {
-            window.rootViewController = UINavigationController(rootViewController: MainTabBarViewController())
+            window.rootViewController = MainTabBarViewController()
         } else {
             window.rootViewController = OnboardingViewController()
         }

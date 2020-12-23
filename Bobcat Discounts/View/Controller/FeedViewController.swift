@@ -70,7 +70,15 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
     
     //Delete later
     
+    private func presentPopUp() {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+            let popup = LocationPopup(address: "1375 Poppy Ridge Ct.", miles: "320 miles away")
+            self.view.addSubview(popup)
+        }
+    }
+    
     private func parseData() {
+        presentPopUp()
         let restaurantURLString = "https://enriqueflorencio.github.io/bobcatdiscounts.github.io/Data/business_data.json"
         if let url = URL(string: restaurantURLString) {
             if let data = try? Data(contentsOf: url) {
@@ -97,6 +105,7 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
         }
         
         feedCollectionView.reloadData()
+        presentPopUp()
 
 
     }
