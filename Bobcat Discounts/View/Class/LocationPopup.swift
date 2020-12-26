@@ -20,7 +20,6 @@ public class LocationPopup: UIView {
     private var addressString = ""
     private var milesString = ""
     
-    
     public override init(frame: CGRect) {
         super.init(frame: frame)
         configureSelf()
@@ -30,16 +29,26 @@ public class LocationPopup: UIView {
         configureContainerView()
     }
     
-    convenience init(address: String, miles: String) {
+    convenience init(mapViewModel: MapViewModel) {
         self.init(frame: .zero)
-        self.addressString = address
-        self.milesString = miles
+        self.addressString = mapViewModel.businessAddress
+        self.milesString = "\(mapViewModel.distance)"
         configureAddress()
         configureMiles()
+        addAnnotation(annotation: mapViewModel.annotation)
+        configureRect(businessRegion: mapViewModel.mapRegion)
     }
     
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func addAnnotation(annotation: BusinessAnnotation) {
+        mapView.addAnnotation(annotation)
+    }
+    
+    private func configureRect(businessRegion: MKCoordinateRegion) {
+        mapView.setRegion(businessRegion, animated: true)
     }
     
     private func configureSelf() {
@@ -50,7 +59,8 @@ public class LocationPopup: UIView {
     private func configureMapView() {
         mapView.mapType = MKMapType.standard
         mapView.isZoomEnabled = false
-        mapView.isScrollEnabled = false
+        mapView.isScrollEnabled = true
+        mapView.showsUserLocation = true
         mapView.clipsToBounds = true
     }
     
@@ -62,7 +72,7 @@ public class LocationPopup: UIView {
     }
     
     private func configureAddress() {
-        addressLabel.backgroundColor = .red
+        addressLabel.backgroundColor = .white
         addressLabel.text = addressString
         addressLabel.textAlignment = .center
         addressLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 13.0)
@@ -75,18 +85,23 @@ public class LocationPopup: UIView {
     }
     
     private func configureMiles() {
-        //milesLabel.backgroundColor = .red
+        milesLabel.backgroundColor = .systemBlue
+//        milesLabel.layer.borderColor = UIColor.blue.cgColor
+        milesLabel.layer.cornerRadius = 30
+        milesLabel.layer.masksToBounds = true
         milesLabel.text = milesString
+        milesLabel.textColor = .white
         milesLabel.textAlignment = .center
         milesLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 16.0)
         
         stack.addArrangedSubview(milesLabel)
         
         milesLabel.snp.makeConstraints { (make) in
-            make.width.equalTo(stack.snp.width)
+            make.width.equalTo(stack.snp.width).multipliedBy(0.7)
             make.height.equalTo(stack.snp.height).multipliedBy(0.2)
         }
         stack.setCustomSpacing(15.0, after: addressLabel)
+        
     }
     
     private func configureContainerView() {
@@ -123,6 +138,7 @@ public class LocationPopup: UIView {
         
         configureViewConstraints()
     }
+    
     
     
 }

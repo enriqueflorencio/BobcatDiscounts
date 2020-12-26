@@ -9,14 +9,12 @@ import UIKit
 import SnapKit
 
 public class CategoryBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    
     private var categoryCollectionView: UICollectionView!
     private let imageNames = ["restaurants", "dessert", "other"]
     private let cellId = "categoryCell"
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         configureCategoryCollectionView()
         configureConstraints()
     }
@@ -59,9 +57,6 @@ public class CategoryBar: UIView, UICollectionViewDataSource, UICollectionViewDe
         }
         
         cell.categoryString = imageNames[indexPath.item]
-        
-        
-        
         return cell
     }
     

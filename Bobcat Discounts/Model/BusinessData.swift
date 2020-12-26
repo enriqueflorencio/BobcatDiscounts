@@ -20,4 +20,7 @@ public struct businessInfo: Codable {
     public var businessImageURL: String?
     public var itemImageURL: String?
     public var description: String?
+    public var address: String?
+    public var latitude: Double?
+    public var longitude: Double?
 }
