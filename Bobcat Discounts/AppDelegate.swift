@@ -22,8 +22,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             /// Create the storyboard programmatically
             window = UIWindow(frame: UIScreen.main.bounds)
             /// Create the navigation controller and assign the root view controller to the selection screen
-            let navigationController = UINavigationController(rootViewController: MainTabBarViewController())
-            window?.rootViewController = navigationController
+            let defaults = UserDefaults.standard
+            let didOnboard = defaults.bool(forKey: "isOnboarded")
+            if(didOnboard) {
+                window?.rootViewController = MainTabBarViewController()
+            } else {
+                window?.rootViewController = OnboardingViewController()
+            }
             window?.makeKeyAndVisible()
             
             

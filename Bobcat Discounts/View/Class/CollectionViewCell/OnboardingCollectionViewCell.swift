@@ -48,7 +48,6 @@ public class OnboardingCollectionViewCell: UICollectionViewCell {
     
     
     private func configureAnimation() {
-        //animationView.animation = Animation.named(animationString!)
         animationView.translatesAutoresizingMaskIntoConstraints = false
         animationView.backgroundColor = .white
         animationView.contentMode = .scaleAspectFit

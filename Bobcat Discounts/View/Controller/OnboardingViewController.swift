@@ -54,10 +54,8 @@ public class OnboardingViewController: UIViewController, UICollectionViewDataSou
     
     private func presentMainApp() {
         let vc = MainTabBarViewController()
-        let navVC = UINavigationController(rootViewController: vc)
-        navVC.modalPresentationStyle = .fullScreen
-        present(navVC, animated: true, completion: nil)
-        //self.navigationController?.pushViewController(navVC, animated: true)
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true, completion: nil)
     }
     
     // MARK: Data Source Methods

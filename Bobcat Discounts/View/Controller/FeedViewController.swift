@@ -7,24 +7,24 @@
 
 import UIKit
 import SnapKit
+import CoreLocation
 
-public class FeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
+public class FeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, LocationServiceDelegate {
     // MARK: Private Variables
     private var feedCollectionView: UICollectionView!
     private var categoryBar: CategoryBar!
-    private var practiceRestuarantImage = UIImageView()
-    private var practiceFoodImage = UIImageView()
-    private var practiceRestaurant = Business()
+    private var businesses = [businessInfo]()
+    private var locationService: LocationService?
+    private let networkService = NetworkService()
 
     override public func viewDidLoad() {
         super.viewDidLoad()
-        
         configureBackgroundColor()
         setupCategoryBar()
         configureFeedCollectionView()
         configureFeedCollectionViewConstraints()
-        parseData()
+        checkLocationServices()
+        fetchData()
     }
     
     private func configureBackgroundColor() {
@@ -68,34 +68,44 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
         }
     }
     
-    //Delete later
+    private func checkLocationServices() {
+        let locationManager = CLLocationManager()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationService = LocationService(locationManager: locationManager)
+        locationService?.setupLocationServices()
+        locationService?.delegate = self
+    }
     
-    private func parseData() {
-        let restaurantURLString = "https://enriqueflorencio.github.io/bobcatdiscounts.github.io/Data/business_data.json"
-        if let url = URL(string: restaurantURLString) {
-            if let data = try? Data(contentsOf: url) {
-                parse(data)
+    private func fetchData() {
+        networkService.parseData { [weak self] (businessData) in
+            guard let self = self else {
+                return
+            }
+            
+            self.businesses = businessData
+            
+            DispatchQueue.main.async {
+                self.feedCollectionView.reloadData()
             }
         }
     }
-
-    private func parse(_ json: Data) {
-        let decoder = JSONDecoder()
-
-        if let jsonRestaurant = try? decoder.decode(Business.self, from: json) {
-            practiceRestaurant.businessName = jsonRestaurant.businessName
-            practiceRestaurant.businessImageURL = jsonRestaurant.businessImageURL
-            practiceRestaurant.itemImageURL = jsonRestaurant.itemImageURL
-            practiceRestaurant.description = jsonRestaurant.description
-        }
-
-
+    
+    ///Call this function to present an alert controller to the user if they denied us from using their location
+    public func presentAlertController() {
+        let ac = UIAlertController(title: "WARNING:", message: "Bobcat Discounts neeeds access to your location in order to deliver a satisfying experience. Please change your settings to grant us access to your location.", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .cancel))
+        present(ac, animated: true)
+    }
+    
+    private func configurePopUp(_ mapViewModel: MapViewModel) {
+        let popup = LocationPopup(mapViewModel: mapViewModel)
+        view.addSubview(popup)
     }
     
     // MARK: Collection View Data Source Methods
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return businesses.count
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -103,9 +113,9 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
             fatalError("Could not dequeue reusable cell")
         }
         
-        cell.itemImageURL = practiceRestaurant.itemImageURL
-        cell.discountDescription = practiceRestaurant.description
-        cell.businessName = practiceRestaurant.businessName
+        cell.itemImageURL = businesses[indexPath.row].itemImageURL
+        cell.discountDescription = businesses[indexPath.row].description
+        cell.businessName = businesses[indexPath.row].businessName
         cell.layer.borderColor = UIColor(white: 0, alpha: 0.3).cgColor
         cell.layer.borderWidth = 2
         cell.layer.cornerRadius = 7
@@ -115,6 +125,67 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     // MARK: Collection View Delegation Methods
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedBusiness = businesses[indexPath.row]
+        guard let latitude  = selectedBusiness.latitude,
+              let longitude = selectedBusiness.longitude,
+              let businessName = selectedBusiness.businessName else {
+            return
+        }
+        
+        
+        
+        guard let mapRegion = locationService?.createRegion(businessLatitude: latitude, businessLongitude: longitude),
+              let businessAnnotation = locationService?.createBusinessAnnotation(businessName: businessName, businessLatitude: latitude, businessLongitude: longitude) else {
+            return
+        }
+        
+        
+        locationService?.direct(businessLatitude: latitude, businessLongitude: longitude, callback: { [weak self] (distance) in
+            let mapViewModel = MapViewModel(businessAddress: businessName, distance: distance, mapRegion: mapRegion, annotation: businessAnnotation)
+            self?.configurePopUp(mapViewModel)
+            
+        })
+//        locationService?.delegate = nil
+        
+    }
+    
+    private func beginUpdatingLocation() {
+        locationService?.locationManager.startUpdatingLocation()
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        UIView.animate(withDuration: 0.3, animations: {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? FeedCollectionViewCell else {
+                fatalError()
+            }
+            
+            cell.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
+            
+        })
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        UIView.animate(withDuration: 0.3, animations: {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? FeedCollectionViewCell else {
+                fatalError()
+            }
+            
+            cell.backgroundColor = .white
+            
+        })
+    }
+    
+    public func notifyStatus(status: CLAuthorizationStatus) {
+        ///If the user has denied us from using their location
+        if(status == .denied) {
+            presentAlertController()
+            ///Potentially need to disable some features here
+        } else {
+            beginUpdatingLocation()
+        }
+    }
 
 }
 /// Put this somewhere better later

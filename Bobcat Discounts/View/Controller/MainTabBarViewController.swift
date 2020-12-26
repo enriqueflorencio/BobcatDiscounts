@@ -14,7 +14,6 @@ public class MainTabBarViewController: UITabBarController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         configureBackground()
-        configureTabBar()
         configureViewControllers()
     }
     
@@ -28,10 +27,6 @@ public class MainTabBarViewController: UITabBarController {
     
     private func configureBackground() {
         view.backgroundColor = .white
-    }
-    
-    private func configureTabBar() {
-        tabBar.barTintColor = .white
     }
     
     private func configureViewControllers() {
