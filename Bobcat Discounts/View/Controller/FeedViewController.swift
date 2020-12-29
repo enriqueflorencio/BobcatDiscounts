@@ -97,9 +97,9 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
         present(ac, animated: true)
     }
     
-    private func configurePopUp(_ mapViewModel: MapViewModel) {
-        let popup = LocationPopup(mapViewModel: mapViewModel)
-        view.addSubview(popup)
+    private func configurePopUp() {
+        //let popup = LocationPopup(mapViewModel: mapViewModel)
+        //view.addSubview(popup)
     }
     
     // MARK: Collection View Data Source Methods
@@ -130,23 +130,15 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
         let selectedBusiness = businesses[indexPath.row]
         guard let latitude  = selectedBusiness.latitude,
               let longitude = selectedBusiness.longitude,
-              let businessName = selectedBusiness.businessName else {
+              let businessName = selectedBusiness.businessName,
+              let businessAddress = selectedBusiness.address,
+              let currentCoordinate = locationService?.currentCoordinate else {
             return
         }
         
+        let popup = LocationPopup(latitude: latitude, longitude: longitude, businessName: businessName, currentCoordinate: currentCoordinate)
+        view.addSubview(popup)
         
-        
-        guard let mapRegion = locationService?.createRegion(businessLatitude: latitude, businessLongitude: longitude),
-              let businessAnnotation = locationService?.createBusinessAnnotation(businessName: businessName, businessLatitude: latitude, businessLongitude: longitude) else {
-            return
-        }
-        
-        
-        locationService?.direct(businessLatitude: latitude, businessLongitude: longitude, callback: { [weak self] (distance) in
-            let mapViewModel = MapViewModel(businessAddress: businessName, distance: distance, mapRegion: mapRegion, annotation: businessAnnotation)
-            self?.configurePopUp(mapViewModel)
-            
-        })
 //        locationService?.delegate = nil
         
     }

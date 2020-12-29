@@ -40,8 +40,6 @@ public class FeedCollectionViewCell: UICollectionViewCell {
     // MARK: Constructor Methods
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        
     }
     
     required init?(coder: NSCoder) {
@@ -110,6 +108,7 @@ public class FeedCollectionViewCell: UICollectionViewCell {
     
     private func configureBusinessImageView() {
         businessImageView.layer.borderWidth = 1.0
+        businessImageView.contentMode = .scaleAspectFit
         //businessImageView.layer.borderColor = UIColor.white.cgColor
         //businessImageView.layer.cornerRadius = businessImageView.frame.size.width / 2
         businessImageView.layer.masksToBounds = false

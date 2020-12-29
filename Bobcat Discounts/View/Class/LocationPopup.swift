@@ -10,37 +10,78 @@ import UIKit
 import MapKit
 import SnapKit
 
-public class LocationPopup: UIView {
+public class LocationPopup: UIView, UIGestureRecognizerDelegate {
     
-    private let mapView = MKMapView()
+    private let mapView = BobcatMapView()
     private var container = UIView()
     private var stack = UIStackView()
     private var addressLabel = UILabel()
     private var milesLabel = UILabel()
     private var addressString = ""
     private var milesString = ""
+    private var calculator : MapViewCalculator?
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
+        configureGestureRecognizer()
         configureSelf()
         configureAddress()
-        configureMapView()
         configureStackView()
         configureContainerView()
+        animateIn()
     }
     
-    convenience init(mapViewModel: MapViewModel) {
+    convenience init(latitude: Double, longitude: Double, businessName: String, currentCoordinate: CLLocationCoordinate2D) {
         self.init(frame: .zero)
-        self.addressString = mapViewModel.businessAddress
-        self.milesString = "\(mapViewModel.distance)"
+        self.calculator = MapViewCalculator(currentCoordinate: currentCoordinate)
+        guard let businessAnnotation = self.calculator?.createBusinessAnnotation(businessName: businessName, businessLatitude: latitude, businessLongitude: longitude),
+              let mapRegion = self.calculator?.createRegion(businessLatitude: latitude, businessLongitude: longitude) else {
+            return
+        }
+        
+        self.calculator?.direct(businessLatitude: latitude, businessLongitude: longitude, callback: { [weak self] (distance) in
+            guard let self = self else {
+                return
+            }
+            self.milesString = "\(distance)"
+            self.configureMiles()
+        })
+        self.addressString = businessName
+        
         configureAddress()
-        configureMiles()
-        addAnnotation(annotation: mapViewModel.annotation)
-        configureRect(businessRegion: mapViewModel.mapRegion)
+        addAnnotation(annotation: businessAnnotation)
+        configureRect(businessRegion: mapRegion)
     }
     
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configureGestureRecognizer() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(animateOut))
+        tapGestureRecognizer.delegate = self
+        self.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc private func animateOut() {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseIn) {
+            self.container.transform = CGAffineTransform(translationX: 0, y: -self.frame.height)
+            self.alpha = 0
+        } completion: { (complete) in
+            if(complete) {
+                self.removeFromSuperview()
+            }
+        }
+
+    }
+    
+    private func animateIn() {
+        self.container.transform = CGAffineTransform(translationX: 0, y: -self.frame.height)
+        self.alpha = 1
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
+            self.container.transform = .identity
+            self.alpha = 1
+        })
     }
     
     private func addAnnotation(annotation: BusinessAnnotation) {
@@ -52,16 +93,8 @@ public class LocationPopup: UIView {
     }
     
     private func configureSelf() {
-        backgroundColor = UIColor.gray.withAlphaComponent(6)
+        backgroundColor = UIColor.gray.withAlphaComponent(0.7)
         frame = UIScreen.main.bounds
-    }
-    
-    private func configureMapView() {
-        mapView.mapType = MKMapType.standard
-        mapView.isZoomEnabled = false
-        mapView.isScrollEnabled = true
-        mapView.showsUserLocation = true
-        mapView.clipsToBounds = true
     }
     
     private func configureViewConstraints() {
@@ -139,6 +172,12 @@ public class LocationPopup: UIView {
         configureViewConstraints()
     }
     
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if(touch.view?.isDescendant(of: container) == true) {
+            return false
+        }
+        return true
+    }
     
     
 }
