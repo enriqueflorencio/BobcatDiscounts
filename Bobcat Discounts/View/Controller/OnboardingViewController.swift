@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Lottie
 
-public class OnboardingViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, OnboardingCellDelegate {
+public class OnboardingViewController: UIViewController {
     
     private let animationStrings = ["restaurant", "idcard", "bookmark"]
     private let infoStrings = ["Find businesses in Merced that offer discounts to UC Merced students!", "Please have your student ID present when making a purchase", "Bookmark discounts that you might want to reference later!"]
@@ -58,8 +58,16 @@ public class OnboardingViewController: UIViewController, UICollectionViewDataSou
         present(vc, animated: true, completion: nil)
     }
     
-    // MARK: Data Source Methods
+    private func getCenterIndex() -> IndexPath? {
+        ///Take the center of the view controllers space itself and converting it to the space of the view I'm interested in which in this case is the collection view
+        let center = self.view.convert(self.collectionView.center, to: self.collectionView)
+        let index = collectionView.indexPathForItem(at: center)
+        return index
+    }
     
+}
+
+extension OnboardingViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return infoStrings.count
     }
@@ -83,9 +91,9 @@ public class OnboardingViewController: UIViewController, UICollectionViewDataSou
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-    
-    // MARK: OnboardingCell Delegation Methods
-    
+}
+
+extension OnboardingViewController: OnboardingCellDelegate {
     public func moveFrame() {
         guard let centerindex = getCenterIndex() else {
             return
@@ -103,12 +111,4 @@ public class OnboardingViewController: UIViewController, UICollectionViewDataSou
         }
         
     }
-    
-    private func getCenterIndex() -> IndexPath? {
-        ///Take the center of the view controllers space itself and converting it to the space of the view I'm interested in which in this case is the collection view
-        let center = self.view.convert(self.collectionView.center, to: self.collectionView)
-        let index = collectionView.indexPathForItem(at: center)
-        return index
-    }
-    
 }

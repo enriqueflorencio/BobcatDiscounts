@@ -13,6 +13,7 @@ public class SectionHeader: UICollectionReusableView {
     public override init(frame: CGRect) {
         super.init(frame: frame)
         configureSectionLabel()
+        configureConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -22,13 +23,16 @@ public class SectionHeader: UICollectionReusableView {
     private func configureSectionLabel() {
         sectionLabel.textColor = UIColor.black
         sectionLabel.textAlignment = .left
-        sectionLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        sectionLabel.font = UIFont.systemFont(ofSize: 25, weight: .bold)
         sectionLabel.sizeToFit()
         sectionLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(sectionLabel)
+    }
+    
+    public func configureConstraints() {
         sectionLabel.snp.makeConstraints { (make) in
             make.top.equalTo(snp.top)
-            make.leading.equalTo(snp.leading).offset(20)
+            make.leading.equalTo(snp.leading)
             make.trailing.equalTo(snp.trailing)
         }
     }

@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 import MapKit
 
-public class MapViewCalculator {
+public class MapService {
     ///The user's current coordinate
     public let currentCoordinate: CLLocationCoordinate2D?
     
@@ -24,6 +24,7 @@ public class MapViewCalculator {
     
     //This might need to run on a background thread
     public func direct(businessLatitude: Double, businessLongitude: Double, callback: @escaping (CLLocationDistance) -> Void) {
+        
         guard let currentCoordinate = currentCoordinate else {
             return
         }
@@ -34,6 +35,7 @@ public class MapViewCalculator {
         request.transportType = .automobile
         
         let directions = MKDirections(request: request)
+
         directions.calculate { [unowned self] (response, error) in
             guard let unwrappedResponse = response else {
                 return
@@ -43,6 +45,8 @@ public class MapViewCalculator {
             let distance = route.distance / 1609
             callback(distance)
         }
+        
+        
     }
     
     public func createRegion(businessLatitude: Double, businessLongitude: Double) -> MKCoordinateRegion? {

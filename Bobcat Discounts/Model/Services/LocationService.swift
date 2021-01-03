@@ -14,7 +14,7 @@ public protocol LocationServiceDelegate: class {
 }
 
 /// Location Service will act as a wrapper for for the CoreLocation Manager.
-public class LocationService: NSObject, CLLocationManagerDelegate {
+public class LocationService: NSObject {
     
     // MARK: Public/Private Variables
     
@@ -49,8 +49,9 @@ public class LocationService: NSObject, CLLocationManagerDelegate {
         
     }
     
-    // MARK: Location Manager Delegate Functions
-    
+}
+
+extension LocationService: CLLocationManagerDelegate {
     ///Set our status equal to what the user agreed to. If they denied our permission then we have to show them an alert controller telling them that this app doesn't work without their permission.
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         self.status = status
@@ -69,5 +70,4 @@ public class LocationService: NSObject, CLLocationManagerDelegate {
         locationManager.stopUpdatingLocation()
         
     }
-    
 }

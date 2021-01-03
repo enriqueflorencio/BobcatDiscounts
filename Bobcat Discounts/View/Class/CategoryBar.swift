@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-public class CategoryBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+public class CategoryBar: UIView {
     private var categoryCollectionView: UICollectionView!
     private let imageNames = ["restaurants", "dessert", "other"]
     private let cellId = "categoryCell"
@@ -45,8 +45,9 @@ public class CategoryBar: UIView, UICollectionViewDataSource, UICollectionViewDe
         }
     }
     
-    // MARK: Data Source Methods
-    
+}
+
+extension CategoryBar: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imageNames.count
     }
@@ -68,5 +69,4 @@ public class CategoryBar: UIView, UICollectionViewDataSource, UICollectionViewDe
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-    
 }

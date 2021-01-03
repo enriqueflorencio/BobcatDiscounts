@@ -9,13 +9,14 @@ import UIKit
 import SnapKit
 import CoreLocation
 
-public class FeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, LocationServiceDelegate {
+public class FeedViewController: UIViewController {
     // MARK: Private Variables
     private var feedCollectionView: UICollectionView!
     private var categoryBar: CategoryBar!
     private var businesses = [businessInfo]()
     private var locationService: LocationService?
     private let networkService = NetworkService()
+    private var persistenceService = PersistenceService.shared
 
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +44,9 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     private func configureFeedCollectionView() {
+        
+        ///Create a custom layout and collectionview so we don't have to waste time here
+        
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         layout.itemSize = CGSize(width: view.frame.width * 0.90, height: view.frame.height * 0.4)
@@ -55,6 +59,7 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
         feedCollectionView.showsVerticalScrollIndicator = true
         feedCollectionView.translatesAutoresizingMaskIntoConstraints = false
         feedCollectionView.register(FeedCollectionViewCell.self, forCellWithReuseIdentifier: "FeedCell")
+        feedCollectionView.register(FeedSectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
         feedCollectionView.backgroundColor = .white
         view.addSubview(feedCollectionView)
     }
@@ -74,6 +79,16 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
         locationService = LocationService(locationManager: locationManager)
         locationService?.setupLocationServices()
         locationService?.delegate = self
+    }
+    
+    private func configureMap(mapopup: LocationPopup?, mapService: MapService?, businessModel: BusinessMapModel) {
+        guard let mapPopup = mapopup,
+              let mapService = mapService,
+              let region = mapService.createRegion(businessLatitude: businessModel.businessLatitude, businessLongitude: businessModel.businessLongitude) else {
+            return
+        }
+        mapPopup.addAnnotation(annotation: mapService.createBusinessAnnotation(businessName: businessModel.businessName, businessLatitude: businessModel.businessLatitude, businessLongitude: businessModel.businessLongitude))
+        mapPopup.configureRect(businessRegion: region)
     }
     
     private func fetchData() {
@@ -97,13 +112,15 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
         present(ac, animated: true)
     }
     
-    private func configurePopUp() {
-        //let popup = LocationPopup(mapViewModel: mapViewModel)
-        //view.addSubview(popup)
+    
+    
+    private func beginUpdatingLocation() {
+        locationService?.locationManager.startUpdatingLocation()
     }
     
-    // MARK: Collection View Data Source Methods
-    
+}
+
+extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return businesses.count
     }
@@ -124,7 +141,19 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
         return cell
     }
     
-    // MARK: Collection View Delegation Methods
+    public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if (kind == UICollectionView.elementKindSectionHeader) {
+             let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as! FeedSectionHeader
+             sectionHeader.sectionLabel.text = "All Deals"
+             return sectionHeader
+        } else {
+             return UICollectionReusableView()
+        }
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 50)
+    }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedBusiness = businesses[indexPath.row]
@@ -132,19 +161,35 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
               let longitude = selectedBusiness.longitude,
               let businessName = selectedBusiness.businessName,
               let businessAddress = selectedBusiness.address,
+              let discountDesc = selectedBusiness.description,
               let currentCoordinate = locationService?.currentCoordinate else {
             return
         }
         
-        let popup = LocationPopup(latitude: latitude, longitude: longitude, businessName: businessName, currentCoordinate: currentCoordinate)
-        view.addSubview(popup)
+        let isBookmarked = persistenceService.fetchBusiness(businessName)
+        print(isBookmarked)
+        
+        let mapService = MapService(currentCoordinate: currentCoordinate)
+        let businessModel = BusinessMapModel(businessLatitude: latitude, businessLongitude: longitude, businessName: businessName)
+        //var mapPopup = LocationPopup2()
+        
+        let mapPopup = LocationPopup(business: businessName, discountDesc: discountDesc, address: businessAddress, isBookmarked: isBookmarked)
+        mapPopup.delegate = self
+        self.view.addSubview(mapPopup)
+        self.configureMap(mapopup: mapPopup, mapService: mapService, businessModel: businessModel)
+        
+        mapService.direct(businessLatitude: latitude, businessLongitude: longitude) { [weak self] (miles) in
+            guard let self = self else {
+                return
+            }
+            
+            mapPopup.milesLabel.text = String(format: "%.1f miles away", miles)
+            
+        }
+        
         
 //        locationService?.delegate = nil
         
-    }
-    
-    private func beginUpdatingLocation() {
-        locationService?.locationManager.startUpdatingLocation()
     }
     
     public func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
@@ -168,7 +213,9 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
             
         })
     }
-    
+}
+
+extension FeedViewController: LocationServiceDelegate {
     public func notifyStatus(status: CLAuthorizationStatus) {
         ///If the user has denied us from using their location
         if(status == .denied) {
@@ -178,7 +225,36 @@ public class FeedViewController: UIViewController, UICollectionViewDelegate, UIC
             beginUpdatingLocation()
         }
     }
-
 }
+
+extension FeedViewController: LocationPopupDelegate {
+    public func createBookmark(businessName: String, address: String, discountDesc: String) -> Bool {
+        let bookmark = Bookmark(context: persistenceService.context)
+        bookmark.businessName = businessName
+        bookmark.address = address
+        bookmark.discountdesc = discountDesc
+        let isSaved = persistenceService.save()
+        return isSaved
+    }
+    
+    public func deleteBookmark(businessName: String) -> Bool {
+        let didDelete = persistenceService.deleteBookmark(businessName)
+        return didDelete
+    }
+    
+    
+}
+
+///I don't like this too much... try and do something different when cleaning up the project
+public class FeedSectionHeader: SectionHeader {
+    public override func configureConstraints() {
+        sectionLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(snp.top).offset(15)
+            make.leading.equalTo(snp.leading).offset(20)
+            make.trailing.equalTo(snp.trailing)
+        }
+    }
+}
+
 /// Put this somewhere better later
 let imageCache = NSCache<AnyObject, AnyObject>()
