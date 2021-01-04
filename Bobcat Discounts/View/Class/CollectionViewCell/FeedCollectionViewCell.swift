@@ -16,30 +16,26 @@ public class FeedCollectionViewCell: UICollectionViewCell {
     // MARK: Labels
     public var descriptionLabel = UILabel()
     public var businessNameLabel = UILabel()
-    // MARK: Image URLS
-    public var itemImageURL: String? {
-        didSet {
-            fetchImagesFromURLs()
-            configureItemImageView()
-            configureBusinessImageView()
-        }
-    }
     //MARK: Descriptions
     public var discountDescription: String? {
         didSet {
-            configureDescriptionLabel()
+            descriptionLabel.text = discountDescription
         }
     }
     
     public var businessName: String? {
         didSet {
-            configurebusinessNameLabel()
+            businessNameLabel.text = businessName
         }
     }
     
     // MARK: Constructor Methods
     override init(frame: CGRect) {
         super.init(frame: frame)
+        configureItemImageView()
+        configureBusinessImageView()
+        configureDescriptionLabel()
+        configurebusinessNameLabel()
     }
     
     required init?(coder: NSCoder) {
@@ -53,6 +49,10 @@ public class FeedCollectionViewCell: UICollectionViewCell {
     }
     
     public override func layoutSubviews() {
+        super.layoutSubviews()
+        businessImageView.layer.cornerRadius = (businessImageView.frame.width) / 2
+        businessImageView.layer.borderWidth = 1.0
+        businessImageView.layer.borderColor = UIColor.gray.cgColor
         layer.shadowColor = UIColor.gray.cgColor
         layer.shadowOffset = CGSize(width: 0, height: 0)
         layer.shadowRadius = 6.0
@@ -63,9 +63,9 @@ public class FeedCollectionViewCell: UICollectionViewCell {
     }
     
     private func configureDescriptionLabel() {
-        descriptionLabel.textColor = UIColor.blue
+        descriptionLabel.textColor = UIColor.systemBlue
         descriptionLabel.textAlignment = .left
-        descriptionLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 11.0)
+        descriptionLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18.0)
         descriptionLabel.text = discountDescription
         addSubview(descriptionLabel)
         descriptionLabel.snp.makeConstraints { (make) in
@@ -79,13 +79,13 @@ public class FeedCollectionViewCell: UICollectionViewCell {
     private func configurebusinessNameLabel() {
         businessNameLabel.textColor = UIColor.black
         businessNameLabel.textAlignment = .left
-        businessNameLabel.font = UIFont(name: "HelveticaNeue", size: 11.0)
+        businessNameLabel.font = UIFont(name: "HelveticaNeue", size: 18.0)
         businessNameLabel.text = businessName
         addSubview(businessNameLabel)
         businessNameLabel.snp.makeConstraints { (make) in
             make.width.equalTo(300)
             make.height.equalTo(30)
-            make.top.equalTo(descriptionLabel.snp.bottom).inset(15)
+            make.top.equalTo(descriptionLabel.snp.bottom).inset(5)
             make.leading.equalTo(snp.leading).offset(10)
         }
     }
@@ -108,57 +108,17 @@ public class FeedCollectionViewCell: UICollectionViewCell {
     
     private func configureBusinessImageView() {
         businessImageView.layer.borderWidth = 1.0
-        businessImageView.contentMode = .scaleAspectFit
-        //businessImageView.layer.borderColor = UIColor.white.cgColor
-        //businessImageView.layer.cornerRadius = businessImageView.frame.size.width / 2
+        businessImageView.contentMode = .scaleAspectFill
         businessImageView.layer.masksToBounds = false
         businessImageView.clipsToBounds = true
         businessImageView.backgroundColor = .white
         addSubview(businessImageView)
         businessImageView.snp.makeConstraints { (make) in
-            make.width.equalTo(snp.width).multipliedBy(0.2)
-            make.height.equalTo(snp.height).multipliedBy(0.2)
+            make.width.height.equalTo(snp.height).multipliedBy(0.2)
             make.top.equalTo(itemImageView.snp.bottom).inset(25)
             make.leading.equalTo(snp.leading).offset(20)
         }
         businessImageView.image = UIImage(named: "restaurants")
-    }
-    
-    
-    
-    private func fetchImagesFromURLs() {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let itemurl = URL(string: (self?.itemImageURL!)!) else {
-                return
-            }
-            
-            ///If the image is already in the cache then don't make the request and update the imageView to what's in the cache
-            if let imageFromCache = imageCache.object(forKey: itemurl as AnyObject) as? UIImage {
-                ///Updates to the UI run on the main thread
-                DispatchQueue.main.async { [weak self] in
-                    
-                    self?.itemImageView.image = imageFromCache
-                    
-                }
-                
-            } else {
-                ///Cache miss and so we make the network request
-                guard let data = try? Data(contentsOf: itemurl) else {
-                    return
-                }
-                ///Resize the image to optimize memory usage and insert it into the cache
-                guard let imageToCache = UIImage(data: data)?.resizeImage() else {
-                    return
-                }
-                imageCache.setObject(imageToCache, forKey: itemurl as AnyObject)
-                ///Updates to the UI occur on the main thread
-                DispatchQueue.main.async { [weak self] in
-                    self?.itemImageView.image = imageToCache
-                    
-                }
-            }
-            
-        }
     }
     
 }

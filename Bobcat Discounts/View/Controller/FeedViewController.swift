@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import CoreLocation
+import MapKit
 
 public class FeedViewController: UIViewController {
     // MARK: Private Variables
@@ -17,6 +18,9 @@ public class FeedViewController: UIViewController {
     private var locationService: LocationService?
     private let networkService = NetworkService()
     private var persistenceService = PersistenceService.shared
+    private let imgCache = ImageCache()
+    private var milesDict = [String: Double]()
+    private var regionDict = [String: MKCoordinateRegion]()
 
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -83,12 +87,23 @@ public class FeedViewController: UIViewController {
     
     private func configureMap(mapopup: LocationPopup?, mapService: MapService?, businessModel: BusinessMapModel) {
         guard let mapPopup = mapopup,
-              let mapService = mapService,
-              let region = mapService.createRegion(businessLatitude: businessModel.businessLatitude, businessLongitude: businessModel.businessLongitude) else {
+              let mapService = mapService else {
             return
         }
         mapPopup.addAnnotation(annotation: mapService.createBusinessAnnotation(businessName: businessModel.businessName, businessLatitude: businessModel.businessLatitude, businessLongitude: businessModel.businessLongitude))
-        mapPopup.configureRect(businessRegion: region)
+        if let region = regionDict[businessModel.businessName] {
+            print("region hit")
+            mapPopup.configureRect(businessRegion: region)
+        } else {
+            print("region miss")
+            guard let region = mapService.createRegion(businessLatitude: businessModel.businessLatitude, businessLongitude: businessModel.businessLongitude) else {
+                return
+            }
+            mapPopup.configureRect(businessRegion: region)
+            regionDict[businessModel.businessName] = region
+        }
+        
+        
     }
     
     private func fetchData() {
@@ -118,6 +133,29 @@ public class FeedViewController: UIViewController {
         locationService?.locationManager.startUpdatingLocation()
     }
     
+    private func checkCache(imgUrl: String?, callback: @escaping (UIImage?) -> Void) {
+        guard let imageUrl = imgUrl else {
+            return
+        }
+        
+        ///If the image is already in the cache then don't make the request and update the imageView to what's in the cache
+        if let imageFromCache = imgCache.image(forkey: imageUrl) {
+            callback(imageFromCache)
+        }
+        ///Cache miss and so we make the network request
+        networkService.fetchImage(imageUrl) { [weak self] (data) in
+            guard let self = self else {
+                return
+            }
+            ///Resize the image to optimize memory usage and insert it into the cache
+            guard let imageToCache = UIImage(data: data)?.resizeImage() else {
+                return
+            }
+            self.imgCache.add(imageToCache, forKey: imageUrl)
+            callback(imageToCache)
+        }
+    }
+    
 }
 
 extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -130,7 +168,26 @@ extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSour
             fatalError("Could not dequeue reusable cell")
         }
         
-        cell.itemImageURL = businesses[indexPath.row].itemImageURL
+        checkCache(imgUrl: businesses[indexPath.row].itemImageURL) { [weak self] (image) in
+            guard let self = self else {
+                return
+            }
+            DispatchQueue.main.async {
+                cell.itemImageView.image = image
+            }
+        }
+        
+        checkCache(imgUrl: businesses[indexPath.row].businessImageURL) { [weak self] (image) in
+            guard let self = self else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                cell.businessImageView.image = image
+            }
+        }
+        
+//        cell.itemImageURL = businesses[indexPath.row].itemImageURL
         cell.discountDescription = businesses[indexPath.row].description
         cell.businessName = businesses[indexPath.row].businessName
         cell.layer.borderColor = UIColor(white: 0, alpha: 0.3).cgColor
@@ -178,14 +235,23 @@ extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSour
         self.view.addSubview(mapPopup)
         self.configureMap(mapopup: mapPopup, mapService: mapService, businessModel: businessModel)
         
-        mapService.direct(businessLatitude: latitude, businessLongitude: longitude) { [weak self] (miles) in
-            guard let self = self else {
-                return
-            }
-            
+        if let miles = milesDict[businessName] {
+            print("cache hit")
             mapPopup.milesLabel.text = String(format: "%.1f miles away", miles)
-            
+        } else {
+            print("cache miss")
+            mapService.direct(businessLatitude: latitude, businessLongitude: longitude) { [weak self] (miles) in
+                guard let self = self else {
+                    return
+                }
+                self.milesDict[businessName] = miles
+                
+                mapPopup.milesLabel.text = String(format: "%.1f miles away", miles)
+                
+            }
         }
+        
+        
         
         
 //        locationService?.delegate = nil

@@ -40,4 +40,19 @@ public class NetworkService {
         }
         
     }
+    
+    public func fetchImage(_ url: String, callback: @escaping (Data) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            guard let imageURL = URL(string: url),
+                  let data = try? Data(contentsOf: imageURL) else {
+                return
+            }
+            
+            callback(data)
+        }
+        
+    }
 }
