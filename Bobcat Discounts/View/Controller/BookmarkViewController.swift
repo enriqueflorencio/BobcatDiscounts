@@ -14,30 +14,43 @@ public class BookmarkViewController: UIViewController {
     private var persistenceService = PersistenceService.shared
     private let refreshControl = UIRefreshControl()
     private var bookmarks = [Bookmark]()
+    private var messageLabel = UILabel()
     override public func viewDidLoad() {
         super.viewDidLoad()
         configureBackgroundColor()
-        configureCollectionView()
         getBookmarks()
+        configureCollectionView()
+        configureEmptyMessageLabel()
     }
     
     private func configureBackgroundColor() {
         view.backgroundColor = .white
     }
     
+    private func getBookmarks() {
+        let fetchedbookmarks = persistenceService.fetch(Bookmark.self)
+        bookmarks = fetchedbookmarks
+    }
+    
     private func configureCollectionView() {
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        layout.itemSize = CGSize(width: view.frame.width, height: view.frame.height * 0.15)
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 25
+        
+        
         
         refreshControl.addTarget(self, action: #selector(refreshBookmarks), for: .valueChanged)
         refreshControl.tintColor = UIColor(red:0.25, green:0.72, blue:0.85, alpha:1.0)
         
-        bookedCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height), collectionViewLayout: layout)
+        bookedCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height), collectionViewLayout: UICollectionViewFlowLayout())
+        guard let layout = bookedCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+            return
+        }
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        layout.itemSize = CGSize(width: view.frame.width, height: view.frame.height * 0.15)
+        layout.scrollDirection = .vertical
+        layout.sectionHeadersPinToVisibleBounds = true
+        layout.minimumLineSpacing = 25
         bookedCollectionView.dataSource = self
         bookedCollectionView.delegate = self
+        //bookedCollectionView.indicatorStyl
         bookedCollectionView.refreshControl = refreshControl
         bookedCollectionView.showsVerticalScrollIndicator = true
         bookedCollectionView.isScrollEnabled = true
@@ -55,10 +68,16 @@ public class BookmarkViewController: UIViewController {
         }
     }
     
-    private func getBookmarks() {
-        let fetchedbookmarks = persistenceService.fetch(Bookmark.self)
-        bookmarks = fetchedbookmarks
+    private func configureEmptyMessageLabel() {
+        messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: bookedCollectionView.bounds.size.width, height: bookedCollectionView.bounds.size.height))
+        messageLabel.textColor = .black
+        messageLabel.numberOfLines = 0
+        messageLabel.textAlignment = .center
+        messageLabel.font = UIFont(name: "TrebuchetMS", size: 15)
+        messageLabel.sizeToFit()
     }
+    
+    
     
     @objc private func refreshBookmarks(_ sender: Any) {
         getBookmarks()
@@ -70,6 +89,12 @@ public class BookmarkViewController: UIViewController {
 
 extension BookmarkViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if(bookmarks.count == 0) {
+            messageLabel.text = "Uh-oh! Looks Like You Don't Have Any Bookmarks Yet!"
+            bookedCollectionView.backgroundView = messageLabel
+        } else {
+            bookedCollectionView.backgroundView = nil
+        }
         return bookmarks.count
     }
     
@@ -95,6 +120,6 @@ extension BookmarkViewController: UICollectionViewDataSource, UICollectionViewDe
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 40)
+        return CGSize(width: collectionView.frame.width, height: 50)
     }
 }

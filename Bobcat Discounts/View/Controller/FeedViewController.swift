@@ -57,6 +57,7 @@ public class FeedViewController: UIViewController {
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 25
         
+        
         feedCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height), collectionViewLayout: layout)
         feedCollectionView.dataSource = self
         feedCollectionView.delegate = self

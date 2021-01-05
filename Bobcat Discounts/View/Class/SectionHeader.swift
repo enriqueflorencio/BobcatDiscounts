@@ -23,6 +23,7 @@ public class SectionHeader: UICollectionReusableView {
     private func configureSectionLabel() {
         sectionLabel.textColor = UIColor.black
         sectionLabel.textAlignment = .left
+        sectionLabel.backgroundColor = .white
         sectionLabel.font = UIFont.systemFont(ofSize: 25, weight: .bold)
         sectionLabel.sizeToFit()
         sectionLabel.translatesAutoresizingMaskIntoConstraints = false
