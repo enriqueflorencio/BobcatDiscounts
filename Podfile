@@ -7,8 +7,12 @@ target 'Bobcat Discounts' do
   use_modular_headers!
 
   # Pods for Bobcat Discounts
-  pod 'SnapKit', '~> 5.0.0'
-  pod 'SVProgressHUD'
-  pod 'lottie-ios'
+  pod 'lottie-ios', :modular_headers => true
+  
+  pod 'SnapKit', '~> 5.0.0', :modular_headers => true
+
+  pod 'SVProgressHUD', :modular_headers => true
+
+  pod 'RealmSwift', :modular_headers => true
 
 end

@@ -25,5 +25,6 @@ public class BobcatMapView: MKMapView {
         self.isScrollEnabled = true
         self.showsUserLocation = true
         self.clipsToBounds = true
+        self.layer.cornerRadius = 24
     }
 }

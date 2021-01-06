@@ -8,8 +8,6 @@
 import UIKit
 
 public class MainTabBarViewController: UITabBarController {
-    
-    // MARK: View Controller Life Cycle Methods
 
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +34,5 @@ public class MainTabBarViewController: UITabBarController {
         bookmarkViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1)
         viewControllers = [feedViewController, bookmarkViewController]
     }
-
-
 }
 

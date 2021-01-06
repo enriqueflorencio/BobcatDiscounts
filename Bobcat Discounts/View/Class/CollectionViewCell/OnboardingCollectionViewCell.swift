@@ -15,7 +15,7 @@ public protocol OnboardingCellDelegate : class {
 
 public class OnboardingCollectionViewCell: UICollectionViewCell {
     private let descriptionLabel = UILabel()
-    private let animationView = AnimationView()
+    public let animationView = AnimationView()
     public var nextButton = NextButton()
     public weak var delegate: OnboardingCellDelegate?
     public var descriptionString: String? {

@@ -1,5 +1,5 @@
 //
-//  RestaurantData.swift
+//  BusinessData.swift
 //  Bobcat Discounts
 //
 //  Created by Enrique Florencio on 12/1/20.

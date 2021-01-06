@@ -11,12 +11,20 @@
 		CF2EC22C25777C8700A153F0 /* BusinessData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2EC22B25777C8700A153F0 /* BusinessData.swift */; };
 		CF2EC23125777D4300A153F0 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2EC23025777D4300A153F0 /* UIImage+Extensions.swift */; };
 		CF2EC23A257A17D100A153F0 /* CategoryBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2EC239257A17D100A153F0 /* CategoryBar.swift */; };
+		CF66D11B259B2C660028703B /* BookedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF66D11A259B2C660028703B /* BookedCollectionViewCell.swift */; };
+		CF66D122259B45B00028703B /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF66D121259B45B00028703B /* SectionHeader.swift */; };
 		CF757F6B258F065A0033DEEF /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF757F6A258F065A0033DEEF /* UIButton+Extensions.swift */; };
-		CF757F70259187630033DEEF /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF757F6F259187630033DEEF /* UIImageView+Extensions.swift */; };
 		CFA56EE72575BC2400806C63 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA56EE62575BC2400806C63 /* FeedViewController.swift */; };
 		CFA56EEA2575BDB100806C63 /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA56EE92575BDB100806C63 /* BookmarkViewController.swift */; };
 		CFA56EEE2575D4A900806C63 /* FeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA56EED2575D4A900806C63 /* FeedCollectionViewCell.swift */; };
 		CFAD665625823B5900626CE0 /* restaurant.json in Resources */ = {isa = PBXBuildFile; fileRef = CFAD665525823B5900626CE0 /* restaurant.json */; };
+		CFB87FB425938EC1008CD62E /* LocationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB87FB325938EC1008CD62E /* LocationPopup.swift */; };
+		CFB87FB72594512C008CD62E /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB87FB62594512C008CD62E /* LocationService.swift */; };
+		CFB87FBA2594611C008CD62E /* BusinessAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB87FB92594611C008CD62E /* BusinessAnnotation.swift */; };
+		CFB87FBD2594A02C008CD62E /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB87FBC2594A02C008CD62E /* MapViewModel.swift */; };
+		CFB87FC025957B86008CD62E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB87FBF25957B86008CD62E /* NetworkService.swift */; };
+		CFB87FC3259606F7008CD62E /* BobcatMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB87FC2259606F7008CD62E /* BobcatMapView.swift */; };
+		CFB87FC6259AC8A9008CD62E /* MapViewCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB87FC5259AC8A9008CD62E /* MapViewCalculator.swift */; };
 		CFDAC9092575B3EB0000ED76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAC9082575B3EB0000ED76 /* AppDelegate.swift */; };
 		CFDAC90B2575B3EB0000ED76 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAC90A2575B3EB0000ED76 /* SceneDelegate.swift */; };
 		CFDAC90D2575B3EB0000ED76 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAC90C2575B3EB0000ED76 /* MainTabBarViewController.swift */; };
@@ -35,12 +43,20 @@
 		CF2EC22B25777C8700A153F0 /* BusinessData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessData.swift; sourceTree = "<group>"; };
 		CF2EC23025777D4300A153F0 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		CF2EC239257A17D100A153F0 /* CategoryBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBar.swift; sourceTree = "<group>"; };
+		CF66D11A259B2C660028703B /* BookedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookedCollectionViewCell.swift; sourceTree = "<group>"; };
+		CF66D121259B45B00028703B /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		CF757F6A258F065A0033DEEF /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
-		CF757F6F259187630033DEEF /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		CFA56EE62575BC2400806C63 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		CFA56EE92575BDB100806C63 /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
 		CFA56EED2575D4A900806C63 /* FeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCell.swift; sourceTree = "<group>"; };
 		CFAD665525823B5900626CE0 /* restaurant.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = restaurant.json; path = "../../../Downloads/16274-trending-restaurant/restaurant.json"; sourceTree = "<group>"; };
+		CFB87FB325938EC1008CD62E /* LocationPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPopup.swift; sourceTree = "<group>"; };
+		CFB87FB62594512C008CD62E /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		CFB87FB92594611C008CD62E /* BusinessAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessAnnotation.swift; sourceTree = "<group>"; };
+		CFB87FBC2594A02C008CD62E /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		CFB87FBF25957B86008CD62E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		CFB87FC2259606F7008CD62E /* BobcatMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BobcatMapView.swift; sourceTree = "<group>"; };
+		CFB87FC5259AC8A9008CD62E /* MapViewCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewCalculator.swift; sourceTree = "<group>"; };
 		CFDAC9052575B3EB0000ED76 /* Bobcat Discounts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bobcat Discounts.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFDAC9082575B3EB0000ED76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CFDAC90A2575B3EB0000ED76 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +107,11 @@
 			isa = PBXGroup;
 			children = (
 				CF2EC22B25777C8700A153F0 /* BusinessData.swift */,
+				CFB87FB92594611C008CD62E /* BusinessAnnotation.swift */,
+				CFB87FB62594512C008CD62E /* LocationService.swift */,
+				CFB87FC5259AC8A9008CD62E /* MapViewCalculator.swift */,
+				CFB87FBF25957B86008CD62E /* NetworkService.swift */,
+				CFB87FBC2594A02C008CD62E /* MapViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -99,7 +120,6 @@
 			isa = PBXGroup;
 			children = (
 				CF2EC23025777D4300A153F0 /* UIImage+Extensions.swift */,
-				CF757F6F259187630033DEEF /* UIImageView+Extensions.swift */,
 				CF757F6A258F065A0033DEEF /* UIButton+Extensions.swift */,
 			);
 			path = UIFoundation;
@@ -129,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				CFA56EED2575D4A900806C63 /* FeedCollectionViewCell.swift */,
+				CF66D11A259B2C660028703B /* BookedCollectionViewCell.swift */,
 				CFE0026F257E27CA00A87E5F /* CategoryCollectionViewCell.swift */,
 				CFE0027B257FA30E00A87E5F /* OnboardingCollectionViewCell.swift */,
 			);
@@ -140,6 +161,9 @@
 			children = (
 				CFA56EEC2575D44C00806C63 /* CollectionViewCell */,
 				CF2EC239257A17D100A153F0 /* CategoryBar.swift */,
+				CF66D121259B45B00028703B /* SectionHeader.swift */,
+				CFB87FC2259606F7008CD62E /* BobcatMapView.swift */,
+				CFB87FB325938EC1008CD62E /* LocationPopup.swift */,
 				CFE002872581C32D00A87E5F /* NextButton.swift */,
 			);
 			path = Class;
@@ -297,20 +321,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CF757F70259187630033DEEF /* UIImageView+Extensions.swift in Sources */,
 				CFE002882581C32D00A87E5F /* NextButton.swift in Sources */,
 				CF757F6B258F065A0033DEEF /* UIButton+Extensions.swift in Sources */,
 				CFDAC90D2575B3EB0000ED76 /* MainTabBarViewController.swift in Sources */,
 				CFDAC9092575B3EB0000ED76 /* AppDelegate.swift in Sources */,
+				CF66D122259B45B00028703B /* SectionHeader.swift in Sources */,
+				CFB87FC6259AC8A9008CD62E /* MapViewCalculator.swift in Sources */,
 				CFA56EEE2575D4A900806C63 /* FeedCollectionViewCell.swift in Sources */,
+				CFB87FC3259606F7008CD62E /* BobcatMapView.swift in Sources */,
 				CFA56EE72575BC2400806C63 /* FeedViewController.swift in Sources */,
 				CFDAC90B2575B3EB0000ED76 /* SceneDelegate.swift in Sources */,
 				CFA56EEA2575BDB100806C63 /* BookmarkViewController.swift in Sources */,
 				CF2EC23A257A17D100A153F0 /* CategoryBar.swift in Sources */,
+				CFB87FC025957B86008CD62E /* NetworkService.swift in Sources */,
 				CF2EC22C25777C8700A153F0 /* BusinessData.swift in Sources */,
+				CFB87FBD2594A02C008CD62E /* MapViewModel.swift in Sources */,
+				CFB87FB425938EC1008CD62E /* LocationPopup.swift in Sources */,
 				CF2EC23125777D4300A153F0 /* UIImage+Extensions.swift in Sources */,
 				CFE00273257F996500A87E5F /* OnboardingViewController.swift in Sources */,
 				CFE00270257E27CA00A87E5F /* CategoryCollectionViewCell.swift in Sources */,
+				CFB87FB72594512C008CD62E /* LocationService.swift in Sources */,
+				CFB87FBA2594611C008CD62E /* BusinessAnnotation.swift in Sources */,
+				CF66D11B259B2C660028703B /* BookedCollectionViewCell.swift in Sources */,
 				CFE0027C257FA30E00A87E5F /* OnboardingCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

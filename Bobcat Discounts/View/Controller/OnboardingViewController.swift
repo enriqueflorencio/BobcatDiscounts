@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Lottie
 
-public class OnboardingViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, OnboardingCellDelegate {
+public class OnboardingViewController: UIViewController {
     
     private let animationStrings = ["restaurant", "idcard", "bookmark"]
     private let infoStrings = ["Find businesses in Merced that offer discounts to UC Merced students!", "Please have your student ID present when making a purchase", "Bookmark discounts that you might want to reference later!"]
@@ -58,8 +58,16 @@ public class OnboardingViewController: UIViewController, UICollectionViewDataSou
         present(vc, animated: true, completion: nil)
     }
     
-    // MARK: Data Source Methods
+    private func getCenterIndex() -> IndexPath? {
+        ///Take the center of the view controllers space itself and converting it to the space of the view I'm interested in which in this case is the collection view
+        let center = self.view.convert(self.collectionView.center, to: self.collectionView)
+        let index = collectionView.indexPathForItem(at: center)
+        return index
+    }
     
+}
+
+extension OnboardingViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return infoStrings.count
     }
@@ -83,8 +91,15 @@ public class OnboardingViewController: UIViewController, UICollectionViewDataSou
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
+}
+
+extension OnboardingViewController: OnboardingCellDelegate {
     
-    // MARK: OnboardingCell Delegation Methods
+    private func moveRect(_ contentOffset: CGFloat) {
+        let frame: CGRect = CGRect(x: contentOffset, y: collectionView.contentOffset.y, width: collectionView.frame.width, height: collectionView.frame.height)
+        collectionView.scrollRectToVisible(frame, animated: true)
+    }
+    
     
     public func moveFrame() {
         guard let centerindex = getCenterIndex() else {
@@ -97,18 +112,9 @@ public class OnboardingViewController: UIViewController, UICollectionViewDataSou
             defaults.set(true, forKey: "isOnboarded")
             presentMainApp()
         default:
-            let nextItem = centerindex.item + 1
-            let nextIndexPath = IndexPath(item: nextItem, section: 0)
-            collectionView.scrollToItem(at: nextIndexPath, at: .right, animated: true)
+            let contentOffset = CGFloat(floor(self.collectionView.contentOffset.x + self.collectionView.bounds.size.width))
+            self.moveRect(contentOffset)
         }
         
     }
-    
-    private func getCenterIndex() -> IndexPath? {
-        ///Take the center of the view controllers space itself and converting it to the space of the view I'm interested in which in this case is the collection view
-        let center = self.view.convert(self.collectionView.center, to: self.collectionView)
-        let index = collectionView.indexPathForItem(at: center)
-        return index
-    }
-    
 }
