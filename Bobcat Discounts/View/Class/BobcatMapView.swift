@@ -21,7 +21,7 @@ public class BobcatMapView: MKMapView {
     
     private func configureMapView() {
         self.mapType = .standard
-        self.isZoomEnabled = true
+        self.isZoomEnabled = false
         self.isScrollEnabled = true
         self.showsUserLocation = true
         self.clipsToBounds = true

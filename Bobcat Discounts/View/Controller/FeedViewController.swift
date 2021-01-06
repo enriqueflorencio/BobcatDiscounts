@@ -238,7 +238,7 @@ extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         if let miles = milesDict[businessName] {
             print("cache hit")
-            mapPopup.milesLabel.text = String(format: "%.1f miles away", miles)
+            mapPopup.milesLabel.text = String(format: "%.1f Miles Away", miles)
         } else {
             print("cache miss")
             mapService.direct(businessLatitude: latitude, businessLongitude: longitude) { [weak self] (miles) in
@@ -247,7 +247,7 @@ extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 }
                 self.milesDict[businessName] = miles
                 
-                mapPopup.milesLabel.text = String(format: "%.1f miles away", miles)
+                mapPopup.milesLabel.text = String(format: "%.1f Miles Away", miles)
                 
             }
         }
@@ -287,7 +287,6 @@ extension FeedViewController: LocationServiceDelegate {
         ///If the user has denied us from using their location
         if(status == .denied) {
             presentAlertController()
-            ///Potentially need to disable some features here
         } else {
             beginUpdatingLocation()
         }

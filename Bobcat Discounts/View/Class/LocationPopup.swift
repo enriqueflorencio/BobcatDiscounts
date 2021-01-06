@@ -40,7 +40,7 @@ public class LocationPopup: UIView {
         configureStackViewConstraints()
         configureMapView()
         configureBusiness()
-        configureDiscount()
+        //configureDiscount()
         configureAddress()
         configureMiles()
         configureBookmarkButton()
@@ -73,7 +73,7 @@ public class LocationPopup: UIView {
             make.centerX.equalTo(snp.centerX)
             make.centerY.equalTo(snp.centerY)
             make.width.equalTo(snp.width).multipliedBy(0.9)
-            make.height.equalTo(snp.height).multipliedBy(0.5)
+            make.height.equalTo(snp.height).multipliedBy(0.6)
         }
         container.addSubview(stack)
         
@@ -98,7 +98,7 @@ public class LocationPopup: UIView {
     
     private func configureMapView() {
         mapView.snp.makeConstraints { (make) in
-            make.height.equalTo(stack.snp.height).multipliedBy(0.5)
+            make.height.equalTo(stack.snp.height).multipliedBy(0.45)
             make.width.equalTo(stack.snp.width)
         }
         
@@ -107,7 +107,7 @@ public class LocationPopup: UIView {
     private func configureBusiness() {
         businessLabel.backgroundColor = .white
         businessLabel.textAlignment = .center
-        businessLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 13.0)
+        businessLabel.font = UIFont(name: "AvenirNext-Medium", size: 16.0)
         stack.setCustomSpacing(10.0, after: mapView)
         stack.addArrangedSubview(businessLabel)
         businessLabel.snp.makeConstraints { (make) in
@@ -120,7 +120,7 @@ public class LocationPopup: UIView {
     private func configureDiscount() {
         discountLabel.backgroundColor = .white
         discountLabel.textAlignment = .center
-        discountLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 13.0)
+        discountLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 16.0)
         stack.setCustomSpacing(10.0, after: businessLabel)
         stack.addArrangedSubview(discountLabel)
         discountLabel.snp.makeConstraints { (make) in
@@ -132,8 +132,8 @@ public class LocationPopup: UIView {
     private func configureAddress() {
         addressLabel.backgroundColor = .white
         addressLabel.textAlignment = .center
-        addressLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 13.0)
-        stack.setCustomSpacing(10.0, after: discountLabel)
+        addressLabel.font = UIFont(name: "AvenirNext-Medium", size: 16.0)
+        stack.setCustomSpacing(10.0, after: businessLabel)
         stack.addArrangedSubview(addressLabel)
         addressLabel.snp.makeConstraints { (make) in
             make.width.equalTo(stack.snp.width)
@@ -144,8 +144,8 @@ public class LocationPopup: UIView {
     private func configureMiles() {
         milesLabel.backgroundColor = .white
         milesLabel.textAlignment = .center
-        milesLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 13.0)
-        milesLabel.text = "loading miles"
+        milesLabel.font = UIFont(name: "AvenirNext-Medium", size: 16.0)
+        milesLabel.text = "Calculating Distance.."
         
         stack.addArrangedSubview(milesLabel)
         
@@ -168,12 +168,17 @@ public class LocationPopup: UIView {
         bookmarkButton.titleLabel?.font = UIFont(name: "AvenirNext-Medium", size: 24.0)
         bookmarkButton.addTarget(self, action: #selector(didTap), for: .touchUpInside)
         
+        bookmarkButton.clipsToBounds = true
+        //bookmarkButton.layer.borderWidth = 2
+        
         stack.addArrangedSubview(bookmarkButton)
         
         bookmarkButton.snp.makeConstraints { (make) in
-            make.width.equalTo(stack.snp.width)
-            make.height.equalTo(stack.snp.height).multipliedBy(0.1)
+            make.width.equalTo(stack.snp.width).multipliedBy(0.95)
+            make.height.equalTo(stack.snp.height).multipliedBy(0.15)
         }
+        bookmarkButton.layer.cornerRadius = frame.width * 0.08
+        
         stack.setCustomSpacing(10.0, after: milesLabel)
     }
     

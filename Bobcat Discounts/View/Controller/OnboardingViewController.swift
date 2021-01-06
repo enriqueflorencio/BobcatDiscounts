@@ -94,6 +94,13 @@ extension OnboardingViewController: UICollectionViewDataSource, UICollectionView
 }
 
 extension OnboardingViewController: OnboardingCellDelegate {
+    
+    private func moveRect(_ contentOffset: CGFloat) {
+        let frame: CGRect = CGRect(x: contentOffset, y: collectionView.contentOffset.y, width: collectionView.frame.width, height: collectionView.frame.height)
+        collectionView.scrollRectToVisible(frame, animated: true)
+    }
+    
+    
     public func moveFrame() {
         guard let centerindex = getCenterIndex() else {
             return
@@ -105,9 +112,8 @@ extension OnboardingViewController: OnboardingCellDelegate {
             defaults.set(true, forKey: "isOnboarded")
             presentMainApp()
         default:
-            let nextItem = centerindex.item + 1
-            let nextIndexPath = IndexPath(item: nextItem, section: 0)
-            collectionView.scrollToItem(at: nextIndexPath, at: .right, animated: true)
+            let contentOffset = CGFloat(floor(self.collectionView.contentOffset.x + self.collectionView.bounds.size.width))
+            self.moveRect(contentOffset)
         }
         
     }

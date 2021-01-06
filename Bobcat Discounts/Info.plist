@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Discounts</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -20,10 +22,10 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>Bobcat Discounts would like to use your location to find businesses in your area</string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>Bobcat Discounts would like to use your location to find businesses in your area</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Bobcat Discounts would like to use your location to find businesses in your area</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Bobcat Discounts would like to use your location to find businesses in your area</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -62,7 +64,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-    <key>UIUserInterfaceStyle</key>
-    <string>Light</string>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 </dict>
 </plist>
