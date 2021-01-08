@@ -1,0 +1,6 @@
+module Pods_Bobcat_Deals {
+  umbrella header "Pods-Bobcat Deals-umbrella.h"
+
+  export *
+  module * { export * }
+}
