@@ -8,14 +8,19 @@
 import UIKit
 import SnapKit
 
+public protocol CategoryDelegate: class {
+    func fetchBusinesses(category: String)
+}
+
 public class CategoryBar: UIView {
     private var categoryCollectionView: UICollectionView!
     private let imageNames = ["Restaurants", "Dessert", "Other"]
     private let cellId = "categoryCell"
+    public weak var delegate: CategoryDelegate?
+    private var previousCategory = IndexPath(item: 0, section: 0)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureSelf()
         configureCategoryCollectionView()
         configureConstraints()
     }
@@ -24,20 +29,10 @@ public class CategoryBar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configureSelf() {
-        
-    }
-    
-    public override func layoutSubviews() {
-//        self.addBottomBorderWithColor(color: .black, width: self.frame.size.width)
-    }
-    
     private func configureCategoryCollectionView() {
         let layout = UICollectionViewFlowLayout()
         categoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         categoryCollectionView.backgroundColor = .white
-//        categoryCollectionView.layer.borderColor = UIColor.gray.cgColor
-//        categoryCollectionView.layer.borderWidth = 2
         categoryCollectionView.dataSource = self
         categoryCollectionView.delegate = self
         categoryCollectionView.showsHorizontalScrollIndicator = false
@@ -57,6 +52,7 @@ public class CategoryBar: UIView {
 }
 
 extension CategoryBar: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imageNames.count
     }
@@ -68,6 +64,19 @@ extension CategoryBar: UICollectionViewDataSource, UICollectionViewDelegate, UIC
         
         cell.categoryString = imageNames[indexPath.item]
         return cell
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CategoryCollectionViewCell else {
+            return
+        }
+        guard let previousCell = collectionView.cellForItem(at: previousCategory) as? CategoryCollectionViewCell else {
+            return
+        }
+        previousCell.categoryLabel.textColor = .black
+        cell.categoryLabel.textColor = .systemBlue
+        delegate?.fetchBusinesses(category: imageNames[indexPath.item])
+        previousCategory = indexPath
     }
     
     

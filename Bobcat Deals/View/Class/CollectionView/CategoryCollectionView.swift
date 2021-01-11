@@ -18,7 +18,7 @@ public class CategoryCollectionViewCell: UICollectionViewCell {
     }
     
     private var categoryImage = UIImageView()
-    private var categoryLabel = UILabel()
+    public var categoryLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

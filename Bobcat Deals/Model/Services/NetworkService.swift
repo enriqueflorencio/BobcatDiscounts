@@ -9,29 +9,35 @@ import Foundation
 import UIKit
 
 public class NetworkService {
-    private let businessURLString = "https://enriqueflorencio.github.io/bobcatdiscounts.github.io/Data/business_data.json"
+    
     private let session = URLSession.shared
     private let decoder = JSONDecoder()
+    public var task = URLSessionDataTask()
     
-    public func fetchData(callback: @escaping ([businessInfo]) -> Void) {
-        guard let url = URL(string: businessURLString) else { return }
+    public func fetchData(url: String, callback: @escaping ([businessInfo]) -> Void) {
+        guard let url = URL(string: url) else { return }
         let request = URLRequest(url: url)
         
-        session.dataTask(with: request) { [weak self] (data, response, error) in
+        task = session.dataTask(with: request) { [weak self] (data, response, error) in
             guard let self = self,
                   let data = data,
                   let jsonBusiness = try? self.decoder.decode(businessData.self, from: data) else { return }
             callback(jsonBusiness.data.businesses)
             
-        }.resume()
-        
+        }
+        task.resume()
+    }
+    
+    public func cancelSession() {
+        session.invalidateAndCancel()
+        print("cancelling request")
     }
     
     public func getImage(_ url: String, callback: @escaping (UIImage) -> Void) {
         guard let url = URL(string: url) else { return }
         let request = URLRequest(url: url)
         
-        session.dataTask(with: request) { [weak self] (data, response, error) in
+        task = session.dataTask(with: request) { [weak self] (data, response, error) in
             guard let self = self,
                   let data = data,
                   let image = UIImage(data: data) else { return }
@@ -39,7 +45,10 @@ public class NetworkService {
                 callback(image)
             }
             
-        }.resume()
+        }
+        //print(task.state.rawValue)
+        task.resume()
+        //print(task.state.rawValue)
         
     }
     

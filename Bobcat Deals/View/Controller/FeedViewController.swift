@@ -18,21 +18,19 @@ public class FeedViewController: UIViewController {
     private var locationService: LocationService?
     private let networkService = NetworkService()
     private var persistenceService = PersistenceService()
-    private let imgCache = ImageCache()
+    private let imgCache = ImageCache.shared
     private var milesDict = [String: Double]()
     private var regionDict = [String: MKCoordinateRegion]()
+    private var businessURLString = "https://enriqueflorencio.github.io/bobcatdiscounts.github.io/Data/Restaurants_data.json"
 
     override public func viewDidLoad() {
         super.viewDidLoad()
-//        networkService.fetchImage("https://s3-media0.fl.yelpcdn.com/bphoto/xUoucjX8Zzt68fV4rviPfg/o.jpg") { (Data) in
-//            print(Data)
-//        }
         configureBackgroundColor()
         setupCategoryBar()
         configureFeedCollectionView()
         configureFeedCollectionViewConstraints()
         checkLocationServices()
-        fetchData()
+        fetchData(businessURL: businessURLString)
     }
     
     private func configureBackgroundColor() {
@@ -41,6 +39,7 @@ public class FeedViewController: UIViewController {
     
     private func setupCategoryBar() {
         categoryBar = CategoryBar()
+        categoryBar.delegate = self
         view.addSubview(categoryBar)
         categoryBar.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
@@ -116,8 +115,10 @@ public class FeedViewController: UIViewController {
         
     }
     
-    private func fetchData() {
-        networkService.fetchData { [weak self] (businessData) in
+    private func fetchData(businessURL: String) {
+        
+        
+        networkService.fetchData(url: businessURL) { [weak self] (businessData) in
             guard let self = self else {
                 return
             }
@@ -143,27 +144,6 @@ public class FeedViewController: UIViewController {
         locationService?.locationManager.startUpdatingLocation()
     }
     
-    private func checkCache(imgUrl: String?, callback: @escaping (UIImage?) -> Void) {
-        guard let imageUrl = imgUrl else {
-            return
-        }
-        
-        ///If the image is already in the cache then don't make the request and update the imageView to what's in the cache
-        if let imageFromCache = imgCache.image(forkey: imageUrl) {
-            callback(imageFromCache)
-        }
-        ///Cache miss and so we make the network request
-        networkService.getImage(imageUrl) { [weak self] (data) in
-            guard let self = self else {
-                return
-            }
-            ///Resize the image to optimize memory usage and insert it into the cache
-            let imageToCache = data.resizeImage() 
-            self.imgCache.add(imageToCache, forKey: imageUrl)
-            callback(imageToCache)
-        }
-    }
-    
 }
 
 extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -175,33 +155,13 @@ extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSour
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FeedCell", for: indexPath) as? FeedCollectionViewCell else {
             fatalError("Could not dequeue reusable cell")
         }
-        
-        checkCache(imgUrl: businesses[indexPath.row].itemImageURL) { [weak self] (image) in
-            guard let self = self else {
-                return
-            }
-            DispatchQueue.main.async {
-                cell.itemImageView.image = image
-            }
-        }
-        
-        checkCache(imgUrl: businesses[indexPath.row].businessImageURL) { [weak self] (image) in
-            guard let self = self else {
-                return
-            }
-            
-            DispatchQueue.main.async {
-                cell.businessImageView.image = image
-            }
-        }
-        
-//        cell.itemImageURL = businesses[indexPath.row].itemImageURL
+        cell.currentItemURL = businesses[indexPath.row].itemImageURL
+        cell.currentbusinessURL = businesses[indexPath.row].businessImageURL
         cell.discountDescription = businesses[indexPath.row].description
         cell.businessName = businesses[indexPath.row].businessName
         cell.layer.borderColor = UIColor(white: 0, alpha: 0.3).cgColor
         cell.layer.borderWidth = 2
         cell.layer.cornerRadius = 7
-        
         
         return cell
     }
@@ -244,10 +204,8 @@ extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSour
         self.configureMap(mapopup: mapPopup, mapService: mapService, businessModel: businessModel)
         
         if let miles = milesDict[businessName] {
-            print("cache hit")
             mapPopup.milesLabel.text = String(format: "%.1f Miles Away", miles)
         } else {
-            print("cache miss")
             mapService.direct(businessLatitude: latitude, businessLongitude: longitude) { [weak self] (miles) in
                 guard let self = self else {
                     return
@@ -258,11 +216,7 @@ extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 
             }
         }
-        
-        
-        
-        
-//        locationService?.delegate = nil
+        //        locationService?.delegate = nil
         
     }
     
@@ -297,6 +251,13 @@ extension FeedViewController: LocationServiceDelegate {
         } else {
             beginUpdatingLocation()
         }
+    }
+}
+
+extension FeedViewController: CategoryDelegate {
+    public func fetchBusinesses(category: String) {
+        businessURLString = "https://enriqueflorencio.github.io/bobcatdiscounts.github.io/Data/\(category)_data.json"
+        fetchData(businessURL: businessURLString)
     }
 }
 

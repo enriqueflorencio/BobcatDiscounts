@@ -9,6 +9,10 @@ import Foundation
 import UIKit
 
 public class ImageCache: NSCache<AnyObject, AnyObject> {
+    
+    static let shared = ImageCache()
+    private override init() {}
+    
     public func add(_ image: UIImage, forKey key: String) {
         setObject(image, forKey: key as AnyObject)
     }

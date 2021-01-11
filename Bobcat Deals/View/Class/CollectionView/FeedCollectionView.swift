@@ -11,8 +11,8 @@ import SnapKit
 ///Collection View Cell that will be used to display businesses to the user
 public class FeedCollectionViewCell: UICollectionViewCell {
     // MARK: Image Views
-    public var itemImageView = UIImageView()
-    public var businessImageView = UIImageView()
+    public var itemImageView = CustomImageView()
+    public var businessImageView = CustomImageView()
     // MARK: Labels
     public var descriptionLabel = UILabel()
     public var businessNameLabel = UILabel()
@@ -20,6 +20,21 @@ public class FeedCollectionViewCell: UICollectionViewCell {
     public var discountDescription: String? {
         didSet {
             descriptionLabel.text = discountDescription
+        }
+    }
+    
+    public var currentItemURL: String? {
+        didSet {
+            if let currentURL = currentItemURL {
+                itemImageView.loadImageUsingURLString(urlString: currentURL)
+            }
+        }
+    }
+    public var currentbusinessURL: String? {
+        didSet {
+            if let currentURL = currentbusinessURL {
+                businessImageView.loadImageUsingURLString(urlString: currentURL)
+            }
         }
     }
     
