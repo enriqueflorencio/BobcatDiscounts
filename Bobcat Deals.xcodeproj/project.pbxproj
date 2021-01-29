@@ -11,6 +11,7 @@
 		CF4CF56F25A7C9990090D04B /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4CF56E25A7C9990090D04B /* UIView+Extensions.swift */; };
 		CF4CF57625A927F40090D04B /* SessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4CF57525A927F40090D04B /* SessionState.swift */; };
 		CF4CF57925A973250090D04B /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4CF57825A973250090D04B /* CustomImageView.swift */; };
+		CF4CF57E25B0EBF20090D04B /* BookedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4CF57D25B0EBF20090D04B /* BookedTableViewCell.swift */; };
 		CFF7A3D925A6D21200D96FC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF7A3D825A6D21200D96FC6 /* AppDelegate.swift */; };
 		CFF7A3DB25A6D21200D96FC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF7A3DA25A6D21200D96FC6 /* SceneDelegate.swift */; };
 		CFF7A3E325A6D21200D96FC6 /* Bobcat_Deals.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CFF7A3E125A6D21200D96FC6 /* Bobcat_Deals.xcdatamodeld */; };
@@ -49,9 +50,12 @@
 /* Begin PBXFileReference section */
 		171119CFB4C0F879DD70730F /* Pods-Bobcat Deals.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bobcat Deals.release.xcconfig"; path = "Target Support Files/Pods-Bobcat Deals/Pods-Bobcat Deals.release.xcconfig"; sourceTree = "<group>"; };
 		A5BCD652650799A8A7C04F6D /* Pods-Bobcat Deals.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bobcat Deals.debug.xcconfig"; path = "Target Support Files/Pods-Bobcat Deals/Pods-Bobcat Deals.debug.xcconfig"; sourceTree = "<group>"; };
+		CF0F554425C39BA6004B382D /* Bobcat_Dealsv 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Bobcat_Dealsv 3.xcdatamodel"; sourceTree = "<group>"; };
 		CF4CF56E25A7C9990090D04B /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		CF4CF57525A927F40090D04B /* SessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionState.swift; sourceTree = "<group>"; };
 		CF4CF57825A973250090D04B /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
+		CF4CF57B25AF8E520090D04B /* Bobcat_Dealsv2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Bobcat_Dealsv2.xcdatamodel; sourceTree = "<group>"; };
+		CF4CF57D25B0EBF20090D04B /* BookedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookedTableViewCell.swift; sourceTree = "<group>"; };
 		CFF7A3D525A6D21200D96FC6 /* Bobcat Deals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bobcat Deals.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFF7A3D825A6D21200D96FC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CFF7A3DA25A6D21200D96FC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -238,6 +242,7 @@
 			children = (
 				CFF7A42525A6D88F00D96FC6 /* FeedCollectionView.swift */,
 				CFF7A42925A6D8B500D96FC6 /* BookedCollectionViewCell.swift */,
+				CF4CF57D25B0EBF20090D04B /* BookedTableViewCell.swift */,
 				CFF7A42C25A6D8D100D96FC6 /* CategoryCollectionView.swift */,
 				CFF7A42F25A6D8F200D96FC6 /* OnboardingCollectionViewCell.swift */,
 			);
@@ -380,6 +385,7 @@
 				CFF7A40A25A6D60200D96FC6 /* BusinessAnnotation.swift in Sources */,
 				CFF7A43F25A6D98000D96FC6 /* StartButton.swift in Sources */,
 				CFF7A44525A6D9C500D96FC6 /* MainTabBarViewController.swift in Sources */,
+				CF4CF57E25B0EBF20090D04B /* BookedTableViewCell.swift in Sources */,
 				CFF7A43025A6D8F200D96FC6 /* OnboardingCollectionViewCell.swift in Sources */,
 				CFF7A3DB25A6D21200D96FC6 /* SceneDelegate.swift in Sources */,
 				CFF7A41E25A6D70700D96FC6 /* Bookmark+CoreDataClass.swift in Sources */,
@@ -602,9 +608,11 @@
 		CFF7A3E125A6D21200D96FC6 /* Bobcat_Deals.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				CF0F554425C39BA6004B382D /* Bobcat_Dealsv 3.xcdatamodel */,
+				CF4CF57B25AF8E520090D04B /* Bobcat_Dealsv2.xcdatamodel */,
 				CFF7A3E225A6D21200D96FC6 /* Bobcat_Deals.xcdatamodel */,
 			);
-			currentVersion = CFF7A3E225A6D21200D96FC6 /* Bobcat_Deals.xcdatamodel */;
+			currentVersion = CF0F554425C39BA6004B382D /* Bobcat_Dealsv 3.xcdatamodel */;
 			path = Bobcat_Deals.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

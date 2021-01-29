@@ -11,6 +11,7 @@ import MapKit
 ///Protocol that our view controller needs to conform to
 public protocol LocationServiceDelegate: class {
     func notifyStatus(status: CLAuthorizationStatus)
+    func updatedUserCoordinate(currentCoordinate: CLLocationCoordinate2D)
 }
 
 /// Location Service will act as a wrapper for for the CoreLocation Manager.
@@ -65,9 +66,9 @@ extension LocationService: CLLocationManagerDelegate {
             return
         }
         currentCoordinate = latestLocation.coordinate
-        
         locationManager.stopMonitoringSignificantLocationChanges()
         locationManager.stopUpdatingLocation()
+        delegate?.updatedUserCoordinate(currentCoordinate: currentCoordinate!)
         
     }
 }

@@ -1,13 +1,14 @@
 //
-//  BookedCollectionViewCell.swift
+//  BookedTableViewCell.swift
 //  Bobcat Deals
 //
-//  Created by Enrique Florencio on 12/29/20.
+//  Created by Enrique Florencio on 1/14/21.
 //
 
 import UIKit
 
-class BookedCollectionViewCell: UICollectionViewCell {
+class BookedTableViewCell: UITableViewCell {
+    
     private var businessImageView = UIImageView()
     private var businessLabel = UILabel()
     private var addressLabel = UILabel()
@@ -24,15 +25,32 @@ class BookedCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    public var category: String? {
+        didSet {
+            if let currentCategory = category {
+                switch currentCategory {
+                case "Restaurant":
+                    businessImageView.image = UIImage(named: "Restaurants")
+                case "Dessert":
+                    businessImageView.image = UIImage(named: "Dessert")
+                case "Other":
+                    businessImageView.image = UIImage(named: "Other")
+                default:
+                    break
+                }
+            }
+        }
+    }
+
+    override public init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureBusinessImageView()
         configureBusinessLabel()
         configureDescriptionLabel()
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError()
     }
     
     override func layoutSubviews() {
@@ -40,14 +58,18 @@ class BookedCollectionViewCell: UICollectionViewCell {
         businessImageView.layer.cornerRadius = (businessImageView.frame.width) / 2
         businessImageView.layer.borderWidth = 1.0
         businessImageView.layer.borderColor = UIColor.black.cgColor
-        //self.addTopBorderWithColor(color: .lightGray, width: self.frame.size.width)
-        self.addBottomBorderWithColor(color: .lightGray, width: self.frame.size.width)
-        self.addTopBorderWithColor(color: .lightGray, width: self.frame.size.width)
-        print(businessImageView.frame.size.height)
+    }
+    
+    public override func prepareForReuse() {
+        super.prepareForReuse()
+        businessImageView.image = nil
+        descriptionLabel.text = nil
+        businessLabel.text = nil
+        addressLabel.text = nil
     }
     
     private func configureBusinessImageView() {
-        businessImageView.image = UIImage(named: "Restaurants")
+        businessImageView.image = nil
         businessImageView.layer.masksToBounds = false
         businessImageView.backgroundColor = .white
         businessImageView.clipsToBounds = true
@@ -67,7 +89,7 @@ class BookedCollectionViewCell: UICollectionViewCell {
         addSubview(businessLabel)
         businessLabel.snp.makeConstraints { (make) in
             make.width.equalTo(snp.width)
-            make.height.equalTo(snp.height).multipliedBy(0.2)
+            make.height.equalTo(snp.height).multipliedBy(0.25)
             make.top.equalTo(businessImageView.snp.top).offset(self.frame.size.height * 0.2)
             make.leading.equalTo(businessImageView.snp.trailing).offset(10)
         }
@@ -81,10 +103,9 @@ class BookedCollectionViewCell: UICollectionViewCell {
         descriptionLabel.snp.makeConstraints { (make) in
             make.width.equalTo(snp.width)
             make.height.equalTo(snp.height).multipliedBy(0.2)
-            make.top.equalTo(businessLabel.snp.bottom).offset(10)
+            make.top.equalTo(businessLabel.snp.bottom).offset(20)
             make.leading.equalTo(businessImageView.snp.trailing).offset(10)
         }
     }
-    
 
 }

@@ -10,12 +10,14 @@ import CoreLocation
 import MapKit
 
 public class MapService {
-    ///The user's current coordinate
-    public let currentCoordinate: CLLocationCoordinate2D?
     
-    public init(currentCoordinate: CLLocationCoordinate2D) {
-        self.currentCoordinate = currentCoordinate
-    }
+    static let shared = MapService()
+    ///The user's current coordinate
+    public var currentCoordinate: CLLocationCoordinate2D?
+    
+//    public init(currentCoordinate: CLLocationCoordinate2D) {
+//        self.currentCoordinate = currentCoordinate
+//    }
     
     public func createBusinessAnnotation(businessName: String, businessLatitude: Double, businessLongitude: Double) -> BusinessAnnotation {
         let businessInformation = BusinessAnnotation(title: businessName, coordinate: CLLocationCoordinate2D(latitude: businessLatitude, longitude: businessLongitude))

@@ -35,6 +35,7 @@ public class OnboardingCollectionViewCell: UICollectionViewCell {
     }
     
     public override func prepareForReuse() {
+        super.prepareForReuse()
         animationView.animation = nil
         descriptionLabel.text = nil
     }

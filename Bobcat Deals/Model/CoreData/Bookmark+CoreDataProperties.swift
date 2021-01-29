@@ -18,6 +18,9 @@ extension Bookmark {
 
     @NSManaged public var address: String
     @NSManaged public var businessName: String
+    @NSManaged public var category: String
     @NSManaged public var discountdesc: String
+    @NSManaged public var latitude: Double
+    @NSManaged public var longitude: Double
 
 }

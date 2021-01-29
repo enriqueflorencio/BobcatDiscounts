@@ -11,11 +11,12 @@ import MapKit
 import SnapKit
 
 public protocol LocationPopupDelegate: class {
-    func createBookmark(businessName: String, address: String, discountDesc: String) -> Bool
+    func createBookmark(businessModel: BusinessMapModel, address: String, discountDesc: String, category: String) -> Bool
     func deleteBookmark(businessName: String) -> Bool
 }
 
 public class LocationPopup: UIView {
+    
     private let mapView = BobcatMapView()
     private var container = UIView()
     private var stack = UIStackView()
@@ -23,15 +24,19 @@ public class LocationPopup: UIView {
     private var businessLabel = UILabel()
     private var discountLabel = UILabel()
     private var bookmarkButton = UIButton()
+    private var category: String?
+    private var businessModel: BusinessMapModel?
     public var milesLabel = UILabel()
     private var isBookmarked = false
     weak public var delegate: LocationPopupDelegate?
     
-    public required init(business: String, discountDesc: String, address: String, isBookmarked: Bool) {
+    public required init(businessMapModel : BusinessMapModel, discountDesc: String, address: String, isBookmarked: Bool, category: String) {
         super.init(frame: .zero)
-        self.businessLabel.text = business
+        self.businessModel = businessMapModel
+        self.businessLabel.text = businessMapModel.businessName
         self.discountLabel.text = discountDesc
         self.addressLabel.text = address
+        self.category = category
         self.isBookmarked = isBookmarked
         configureSelf()
         configureGestureRecognizer()
@@ -40,7 +45,6 @@ public class LocationPopup: UIView {
         configureStackViewConstraints()
         configureMapView()
         configureBusiness()
-        //configureDiscount()
         configureAddress()
         configureMiles()
         configureBookmarkButton()
@@ -235,7 +239,7 @@ extension LocationPopup {
         if(isBookmarked) {
             didComplete = delegate?.deleteBookmark(businessName: businessLabel.text!)
         } else {
-            didComplete = delegate?.createBookmark(businessName: businessLabel.text!, address: addressLabel.text!, discountDesc: discountLabel.text!)
+            didComplete = delegate?.createBookmark(businessModel: businessModel!, address: addressLabel.text!, discountDesc: discountLabel.text!, category: category!)
         }
         
         if(didComplete!) {

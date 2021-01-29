@@ -22,6 +22,7 @@ public class FeedViewController: UIViewController {
     private var milesDict = [String: Double]()
     private var regionDict = [String: MKCoordinateRegion]()
     private var businessURLString = "https://enriqueflorencio.github.io/bobcatdiscounts.github.io/Data/Restaurants_data.json"
+    private let mapService = MapService.shared
 
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -52,13 +53,10 @@ public class FeedViewController: UIViewController {
     public override func viewDidLayoutSubviews() {
         categoryBar.addTopBorderWithColor(color: .lightGray, width: categoryBar.frame.size.width)
         categoryBar.addBottomBorderWithColor(color: .lightGray, width: categoryBar.frame.size.width)
-
     }
     
     private func configureFeedCollectionView() {
-        
         ///Create a custom layout and collectionview so we don't have to waste time here
-        
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         layout.itemSize = CGSize(width: view.frame.width * 0.90, height: view.frame.height * 0.4)
@@ -101,24 +99,20 @@ public class FeedViewController: UIViewController {
         }
         mapPopup.addAnnotation(annotation: mapService.createBusinessAnnotation(businessName: businessModel.businessName, businessLatitude: businessModel.businessLatitude, businessLongitude: businessModel.businessLongitude))
         if let region = regionDict[businessModel.businessName] {
-            print("region hit")
             mapPopup.configureRect(businessRegion: region)
         } else {
-            print("region miss")
             guard let region = mapService.createRegion(businessLatitude: businessModel.businessLatitude, businessLongitude: businessModel.businessLongitude) else {
                 return
             }
             mapPopup.configureRect(businessRegion: region)
             regionDict[businessModel.businessName] = region
         }
-        
-        
+
     }
     
     private func fetchData(businessURL: String) {
-        
-        
         networkService.fetchData(url: businessURL) { [weak self] (businessData) in
+            
             guard let self = self else {
                 return
             }
@@ -126,6 +120,7 @@ public class FeedViewController: UIViewController {
             self.businesses = businessData
             
             DispatchQueue.main.async {
+                
                 self.feedCollectionView.reloadData()
             }
         }
@@ -137,8 +132,6 @@ public class FeedViewController: UIViewController {
         ac.addAction(UIAlertAction(title: "OK", style: .cancel))
         present(ac, animated: true)
     }
-    
-    
     
     private func beginUpdatingLocation() {
         locationService?.locationManager.startUpdatingLocation()
@@ -156,7 +149,7 @@ extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSour
             fatalError("Could not dequeue reusable cell")
         }
         cell.currentItemURL = businesses[indexPath.row].itemImageURL
-        cell.currentbusinessURL = businesses[indexPath.row].businessImageURL
+        cell.category = businesses[indexPath.row].category
         cell.discountDescription = businesses[indexPath.row].description
         cell.businessName = businesses[indexPath.row].businessName
         cell.layer.borderColor = UIColor(white: 0, alpha: 0.3).cgColor
@@ -185,20 +178,16 @@ extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSour
         guard let latitude  = selectedBusiness.latitude,
               let longitude = selectedBusiness.longitude,
               let businessName = selectedBusiness.businessName,
+              let category = selectedBusiness.category,
               let businessAddress = selectedBusiness.address,
               let discountDesc = selectedBusiness.description,
               let currentCoordinate = locationService?.currentCoordinate else {
             return
         }
-        
         let isBookmarked = persistenceService.fetchBusiness(businessName)
-        print(isBookmarked)
-        
-        let mapService = MapService(currentCoordinate: currentCoordinate)
         let businessModel = BusinessMapModel(businessLatitude: latitude, businessLongitude: longitude, businessName: businessName)
-        //var mapPopup = LocationPopup2()
         
-        let mapPopup = LocationPopup(business: businessName, discountDesc: discountDesc, address: businessAddress, isBookmarked: isBookmarked)
+        let mapPopup = LocationPopup(businessMapModel: businessModel, discountDesc: discountDesc, address: businessAddress, isBookmarked: isBookmarked, category: category)
         mapPopup.delegate = self
         self.view.addSubview(mapPopup)
         self.configureMap(mapopup: mapPopup, mapService: mapService, businessModel: businessModel)
@@ -217,11 +206,10 @@ extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSour
             }
         }
         //        locationService?.delegate = nil
-        
     }
     
     public func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.1, animations: {
             guard let cell = collectionView.cellForItem(at: indexPath) as? FeedCollectionViewCell else {
                 fatalError()
             }
@@ -232,7 +220,7 @@ extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     public func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.1, animations: {
             guard let cell = collectionView.cellForItem(at: indexPath) as? FeedCollectionViewCell else {
                 fatalError()
             }
@@ -244,6 +232,10 @@ extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSour
 }
 
 extension FeedViewController: LocationServiceDelegate {
+    public func updatedUserCoordinate(currentCoordinate: CLLocationCoordinate2D) {
+        mapService.currentCoordinate = currentCoordinate
+    }
+    
     public func notifyStatus(status: CLAuthorizationStatus) {
         ///If the user has denied us from using their location
         if(status == .denied) {
@@ -262,9 +254,12 @@ extension FeedViewController: CategoryDelegate {
 }
 
 extension FeedViewController: LocationPopupDelegate {
-    public func createBookmark(businessName: String, address: String, discountDesc: String) -> Bool {
+    public func createBookmark(businessModel: BusinessMapModel, address: String, discountDesc: String, category: String) -> Bool {
         let bookmark = Bookmark(context: persistenceService.context)
-        bookmark.businessName = businessName
+        bookmark.businessName = businessModel.businessName
+        bookmark.category = category
+        bookmark.latitude = businessModel.businessLatitude
+        bookmark.longitude = businessModel.businessLongitude
         bookmark.address = address
         bookmark.discountdesc = discountDesc
         let isSaved = persistenceService.save()
@@ -275,8 +270,6 @@ extension FeedViewController: LocationPopupDelegate {
         let didDelete = persistenceService.deleteBookmark(businessName)
         return didDelete
     }
-    
-    
 }
 
 ///I don't like this too much... try and do something different when cleaning up the project

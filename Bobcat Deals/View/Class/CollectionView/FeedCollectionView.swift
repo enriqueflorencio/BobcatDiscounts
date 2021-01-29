@@ -30,10 +30,19 @@ public class FeedCollectionViewCell: UICollectionViewCell {
             }
         }
     }
-    public var currentbusinessURL: String? {
+    public var category: String? {
         didSet {
-            if let currentURL = currentbusinessURL {
-                businessImageView.loadImageUsingURLString(urlString: currentURL)
+            if let currentCategory = category {
+                switch currentCategory {
+                case "Restaurant":
+                    businessImageView.image = UIImage(named: "Restaurants")
+                case "Dessert":
+                    businessImageView.image = UIImage(named: "Dessert")
+                case "Other":
+                    businessImageView.image = UIImage(named: "Other")
+                default:
+                    break
+                }
             }
         }
     }
@@ -58,8 +67,9 @@ public class FeedCollectionViewCell: UICollectionViewCell {
     }
     
     public override func prepareForReuse() {
+        super.prepareForReuse()
         itemImageView.image = nil
-        businessImageView.image = nil
+        //businessImageView.image = nil
         descriptionLabel.text = nil
     }
     
@@ -123,7 +133,7 @@ public class FeedCollectionViewCell: UICollectionViewCell {
     
     private func configureBusinessImageView() {
         businessImageView.layer.borderWidth = 1.0
-        businessImageView.contentMode = .scaleAspectFill
+        businessImageView.contentMode = .scaleToFill
         businessImageView.layer.masksToBounds = false
         businessImageView.clipsToBounds = true
         businessImageView.backgroundColor = .white
@@ -133,7 +143,7 @@ public class FeedCollectionViewCell: UICollectionViewCell {
             make.top.equalTo(itemImageView.snp.bottom).inset(25)
             make.leading.equalTo(snp.leading).offset(20)
         }
-        businessImageView.image = UIImage(named: "Restaurants")
+        businessImageView.image = nil
     }
     
 }

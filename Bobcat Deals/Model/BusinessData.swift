@@ -23,4 +23,5 @@ public struct businessInfo: Codable {
     public var address: String?
     public var latitude: Double?
     public var longitude: Double?
+    public var category: String?
 }

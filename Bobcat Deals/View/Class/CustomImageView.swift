@@ -14,7 +14,9 @@ public class CustomImageView: UIImageView {
     
     public func loadImageUsingURLString(urlString: String) {
         imageUrlString = urlString
-        let url = URL(string: urlString)
+        guard let url = URL(string: urlString) else {
+            return
+        }
         
         image = nil
         
@@ -23,7 +25,7 @@ public class CustomImageView: UIImageView {
             return
         }
         
-        URLSession.shared.dataTask(with: url!) { [weak self] (data,response,error) in
+        URLSession.shared.dataTask(with: url) { [weak self] (data,response,error) in
             guard let self = self else {return}
             if(error != nil) {
                 print(error)
